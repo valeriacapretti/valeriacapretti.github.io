@@ -11,7 +11,7 @@
     font-weight: normal;
 }
 
-/* 2. BASE E COLORI */
+/* 2. BASE */
 * {
     margin: 0;
     padding: 0;
@@ -22,48 +22,46 @@ body {
     background-color: #FFC0CB; /* Rosa */
     color: #FF0000;           /* Rosso */
     font-family: 'UniqueBold', sans-serif;
-    overflow: hidden;         /* Tutto in una schermata */
+    overflow: hidden;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* 3. CONTENITORE PRINCIPALE */
+/* 3. CONTENITORE */
 .hero {
     text-align: center;
-    perspective: 1000px; /* Necessario per l'effetto di movimento fluido */
+    perspective: 1000px;
 }
 
-/* 4. TITOLO VALERIA CAPRETTI */
+/* 4. TITOLO CON EFFETTO ONDA */
 .main-title {
-    font-size: clamp(6rem, 18vw, 13rem);
+    font-size: clamp(6rem, 22vw, 15rem); 
     text-transform: uppercase;
-    line-height: 1;
-    letter-spacing: 0.15em; /* Spaziatura ampia richiesta */
-    margin-bottom: 50px;
+    line-height: 0.9;
+    letter-spacing: -2px; /* Spaziatura ridotta come richiesto */
+    margin-bottom: 30px;
     display: inline-block;
     
-    /* Animazione Ondulatoria Automatica */
-    animation: floating 5s ease-in-out infinite;
+    /* Animazione a Onda Sinuosa */
+    animation: wave 4s ease-in-out infinite;
     
-    /* Effetto fluido al passaggio del mouse */
-    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    /* Reazione al mouse fluida */
+    transition: transform 0.5s ease-out;
     cursor: default;
-    user-select: none;
 }
 
-/* Quando passi il mouse, il titolo "segue" leggermente con una rotazione */
 .main-title:hover {
-    transform: scale(1.05) rotateY(10deg) rotateX(5deg);
+    transform: scale(1.02) rotateX(5deg);
 }
 
-/* 5. MENU GIGANTE */
+/* 5. MENU CON EFFETTO CONTORNO (OUTLINE) */
 .menu-list {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 60px;
+    gap: 40px;
 }
 
 .menu-list a, .menu-item {
@@ -71,19 +69,19 @@ body {
     color: #FF0000;
     font-size: 2.5rem;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    transition: all 0.4s ease;
-    font-family: 'UniqueRegular', sans-serif;
+    letter-spacing: 1px; /* Spaziatura compatta */
+    transition: all 0.3s ease;
+    font-family: 'UniqueBold', sans-serif;
 }
 
-/* Effetto Hover Menu */
+/* Effetto solo contorno al passaggio del mouse */
 .menu-list a:hover {
-    letter-spacing: 0.25em; /* Le lettere si allontanano */
-    opacity: 0.7;
-    font-style: italic; /* Un tocco creativo in più */
+    color: transparent;
+    -webkit-text-stroke: 1.5px #FF0000;
+    transform: translateY(-5px);
 }
 
-/* 6. DROPDOWN PASSIONS */
+/* 6. SUBMENU PASSIONS */
 .dropdown {
     position: relative;
 }
@@ -95,7 +93,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     background-color: #FFC0CB;
-    padding: 20px;
+    padding: 10px;
     list-style: none;
     z-index: 10;
 }
@@ -107,24 +105,20 @@ body {
 .submenu a {
     font-size: 1.8rem;
     white-space: nowrap;
-    display: block;
-    margin: 10px 0;
 }
 
-/* 7. DEFINIZIONE ANIMAZIONI */
-
-/* Animazione che fa oscillare e ondeggiare il titolo */
-@keyframes floating {
-    0% {
-        transform: translateY(0px) rotate(0deg);
+/* 7. ANIMAZIONE ONDA (Wave) */
+@keyframes wave {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
     }
-    33% {
-        transform: translateY(-15px) rotate(-1deg);
+    25% {
+        transform: translateY(-10px) rotate(-1deg);
     }
-    66% {
-        transform: translateY(10px) rotate(1deg);
+    50% {
+        transform: translateY(5px) rotate(1.5deg) scaleX(1.02);
     }
-    100% {
-        transform: translateY(0px) rotate(0deg);
+    75% {
+        transform: translateY(-5px) rotate(-0.5deg);
     }
 }
