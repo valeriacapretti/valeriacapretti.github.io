@@ -1,19 +1,17 @@
-/* 1. CARICAMENTO FONT PERSONALIZZATI */
+/* 1. CARICAMENTO FONT (Assicurati che i nomi dei file siano identici a quelli su GitHub) */
 @font-face {
     font-family: 'UniqueBold';
     src: url('Unique-Bold.otf') format('opentype');
     font-weight: bold;
-    font-style: normal;
 }
 
 @font-face {
     font-family: 'UniqueRegular';
     src: url('Unique-Regular.otf') format('opentype');
     font-weight: normal;
-    font-style: normal;
 }
 
-/* 2. RESET E BASE */
+/* 2. BASE */
 * {
     margin: 0;
     padding: 0;
@@ -21,10 +19,10 @@
 }
 
 body {
-    background-color: #FFC0CB; /* Rosa classico - puoi cambiarlo con #FFD1DC per un rosa più pastello */
-    color: #FF0000;           /* Rosso puro */
+    background-color: #FFC0CB; /* Rosa */
+    color: #FF0000;           /* Rosso */
     font-family: 'UniqueRegular', sans-serif;
-    overflow: hidden;
+    overflow: hidden; /* Mantiene tutto in una schermata */
 }
 
 /* 3. HERO SECTION */
@@ -35,39 +33,43 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding: 20px;
 }
 
-/* 4. TITOLO PRINCIPALE */
+/* 4. TITOLO GIGANTE */
 .main-title {
     font-family: 'UniqueBold', sans-serif;
-    font-size: clamp(4rem, 15vw, 8rem); /* Si adatta alla grandezza dello schermo */
+    /* Dimensioni raddoppiate: prima era 5rem, ora arriva a 12-15rem su desktop */
+    font-size: clamp(6rem, 25vw, 15rem); 
     text-transform: uppercase;
-    line-height: 0.9;
-    margin-bottom: 40px;
-    color: #FF0000; /* Scritta Rossa */
+    line-height: 0.8; /* Lettere molto vicine verticalmente per un look editoriale */
+    margin-bottom: 20px;
+    letter-spacing: -5px; /* Compressione orizzontale */
 }
 
-/* 5. MENU CREATIVO */
+/* 5. MENU GIGANTE */
 .menu-list {
     list-style: none;
     display: flex;
-    gap: 40px;
+    flex-wrap: wrap; /* Se non ci stanno, vanno a capo */
+    justify-content: center;
+    gap: 50px; /* Più spazio tra le voci */
+    margin-top: 20px;
 }
 
 .menu-list a, .menu-item {
     text-decoration: none;
-    color: #FF0000; /* Scritta Rossa */
-    font-family: 'UniqueRegular', sans-serif;
-    font-size: 1.2rem;
+    color: #FF0000;
+    font-family: 'UniqueBold', sans-serif; /* Usiamo il bold anche qui per coerenza */
+    font-size: 2.5rem; /* Menu molto più grande */
     text-transform: uppercase;
-    letter-spacing: 1px;
     transition: all 0.3s ease;
-    border-bottom: 2px solid transparent;
 }
 
+/* Effetto Hover */
 .menu-list a:hover {
-    border-bottom: 2px solid #FF0000;
-    opacity: 0.7;
+    -webkit-text-stroke: 2px #FF0000; /* Testo vuoto con bordo rosso */
+    color: transparent;
 }
 
 /* Sottomenu Passions */
@@ -81,16 +83,17 @@ body {
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #FFC0CB; /* Stesso rosa dello sfondo */
-    padding: 15px;
+    background-color: #FFC0CB;
     list-style: none;
-    min-width: 150px;
+    padding-top: 10px;
+    z-index: 10;
+}
+
+.submenu a {
+    font-size: 1.8rem; /* Sottomenu leggermente più piccolo del principale ma comunque grande */
+    white-space: nowrap;
 }
 
 .dropdown:hover .submenu {
     display: block;
-}
-
-.submenu li {
-    margin: 10px 0;
 }
