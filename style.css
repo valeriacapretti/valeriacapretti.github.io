@@ -1,0 +1,74 @@
+/* Reset base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fcfcfc; /* Un bianco sporco molto elegante */
+    color: #333;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden; /* Evita lo scroll durante la landing */
+}
+
+/* Contenitore principale */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Stile del Nome */
+.main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    letter-spacing: -2px;
+    margin-bottom: 20px;
+    transition: transform 0.5s ease;
+}
+
+/* Stile Menu */
+.menu-list {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.menu-list a, .menu-item {
+    text-decoration: none;
+    color: #666;
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.menu-list a:hover {
+    color: #000;
+}
+
+/* Sottomenu Passions */
+.dropdown {
+    position: relative;
+}
+
+.submenu {
+    display: none; /* Nascosto di base */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    list-style: none;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.dropdown:hover .submenu {
+    display: block; /* Appare al passaggio del mouse */
+}
