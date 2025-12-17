@@ -1,4 +1,4 @@
-/* 1. CARICAMENTO FONT (Assicurati che i nomi dei file siano identici a quelli su GitHub) */
+/* 1. CARICAMENTO FONT */
 @font-face {
     font-family: 'UniqueBold';
     src: url('Unique-Bold.otf') format('opentype');
@@ -11,7 +11,7 @@
     font-weight: normal;
 }
 
-/* 2. BASE */
+/* 2. BASE E COLORI */
 * {
     margin: 0;
     padding: 0;
@@ -21,58 +21,69 @@
 body {
     background-color: #FFC0CB; /* Rosa */
     color: #FF0000;           /* Rosso */
-    font-family: 'UniqueRegular', sans-serif;
-    overflow: hidden; /* Mantiene tutto in una schermata */
-}
-
-/* 3. HERO SECTION */
-.hero {
+    font-family: 'UniqueBold', sans-serif;
+    overflow: hidden;         /* Tutto in una schermata */
     height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    padding: 20px;
 }
 
-/* 4. TITOLO GIGANTE */
+/* 3. CONTENITORE PRINCIPALE */
+.hero {
+    text-align: center;
+    perspective: 1000px; /* Necessario per l'effetto di movimento fluido */
+}
+
+/* 4. TITOLO VALERIA CAPRETTI */
 .main-title {
-    font-family: 'UniqueBold', sans-serif;
-    /* Dimensioni raddoppiate: prima era 5rem, ora arriva a 12-15rem su desktop */
-    font-size: clamp(6rem, 25vw, 15rem); 
+    font-size: clamp(6rem, 18vw, 13rem);
     text-transform: uppercase;
-    line-height: 0.8; /* Lettere molto vicine verticalmente per un look editoriale */
-    margin-bottom: 20px;
-    letter-spacing: -5px; /* Compressione orizzontale */
+    line-height: 1;
+    letter-spacing: 0.15em; /* Spaziatura ampia richiesta */
+    margin-bottom: 50px;
+    display: inline-block;
+    
+    /* Animazione Ondulatoria Automatica */
+    animation: floating 5s ease-in-out infinite;
+    
+    /* Effetto fluido al passaggio del mouse */
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: default;
+    user-select: none;
+}
+
+/* Quando passi il mouse, il titolo "segue" leggermente con una rotazione */
+.main-title:hover {
+    transform: scale(1.05) rotateY(10deg) rotateX(5deg);
 }
 
 /* 5. MENU GIGANTE */
 .menu-list {
     list-style: none;
     display: flex;
-    flex-wrap: wrap; /* Se non ci stanno, vanno a capo */
     justify-content: center;
-    gap: 50px; /* Più spazio tra le voci */
-    margin-top: 20px;
+    gap: 60px;
 }
 
 .menu-list a, .menu-item {
     text-decoration: none;
     color: #FF0000;
-    font-family: 'UniqueBold', sans-serif; /* Usiamo il bold anche qui per coerenza */
-    font-size: 2.5rem; /* Menu molto più grande */
+    font-size: 2.5rem;
     text-transform: uppercase;
-    transition: all 0.3s ease;
+    letter-spacing: 0.12em;
+    transition: all 0.4s ease;
+    font-family: 'UniqueRegular', sans-serif;
 }
 
-/* Effetto Hover */
+/* Effetto Hover Menu */
 .menu-list a:hover {
-    -webkit-text-stroke: 2px #FF0000; /* Testo vuoto con bordo rosso */
-    color: transparent;
+    letter-spacing: 0.25em; /* Le lettere si allontanano */
+    opacity: 0.7;
+    font-style: italic; /* Un tocco creativo in più */
 }
 
-/* Sottomenu Passions */
+/* 6. DROPDOWN PASSIONS */
 .dropdown {
     position: relative;
 }
@@ -84,16 +95,36 @@ body {
     left: 50%;
     transform: translateX(-50%);
     background-color: #FFC0CB;
+    padding: 20px;
     list-style: none;
-    padding-top: 10px;
     z-index: 10;
-}
-
-.submenu a {
-    font-size: 1.8rem; /* Sottomenu leggermente più piccolo del principale ma comunque grande */
-    white-space: nowrap;
 }
 
 .dropdown:hover .submenu {
     display: block;
+}
+
+.submenu a {
+    font-size: 1.8rem;
+    white-space: nowrap;
+    display: block;
+    margin: 10px 0;
+}
+
+/* 7. DEFINIZIONE ANIMAZIONI */
+
+/* Animazione che fa oscillare e ondeggiare il titolo */
+@keyframes floating {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+        transform: translateY(-15px) rotate(-1deg);
+    }
+    66% {
+        transform: translateY(10px) rotate(1deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
 }
