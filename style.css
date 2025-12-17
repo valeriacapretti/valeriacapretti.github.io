@@ -1,4 +1,19 @@
-/* Reset base */
+/* 1. CARICAMENTO FONT PERSONALIZZATI */
+@font-face {
+    font-family: 'UniqueBold';
+    src: url('Unique-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'UniqueRegular';
+    src: url('Unique-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 2. RESET E BASE */
 * {
     margin: 0;
     padding: 0;
@@ -6,13 +21,13 @@
 }
 
 body {
-    background-color: #fcfcfc; /* Un bianco sporco molto elegante */
-    color: #333;
-    font-family: 'Inter', sans-serif;
-    overflow: hidden; /* Evita lo scroll durante la landing */
+    background-color: #FFC0CB; /* Rosa classico - puoi cambiarlo con #FFD1DC per un rosa più pastello */
+    color: #FF0000;           /* Rosso puro */
+    font-family: 'UniqueRegular', sans-serif;
+    overflow: hidden;
 }
 
-/* Contenitore principale */
+/* 3. HERO SECTION */
 .hero {
     height: 100vh;
     display: flex;
@@ -22,35 +37,37 @@ body {
     text-align: center;
 }
 
-/* Stile del Nome */
+/* 4. TITOLO PRINCIPALE */
 .main-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 5rem;
-    letter-spacing: -2px;
-    margin-bottom: 20px;
-    transition: transform 0.5s ease;
+    font-family: 'UniqueBold', sans-serif;
+    font-size: clamp(4rem, 15vw, 8rem); /* Si adatta alla grandezza dello schermo */
+    text-transform: uppercase;
+    line-height: 0.9;
+    margin-bottom: 40px;
+    color: #FF0000; /* Scritta Rossa */
 }
 
-/* Stile Menu */
+/* 5. MENU CREATIVO */
 .menu-list {
     list-style: none;
     display: flex;
-    gap: 30px;
+    gap: 40px;
 }
 
 .menu-list a, .menu-item {
     text-decoration: none;
-    color: #666;
-    font-weight: 400;
+    color: #FF0000; /* Scritta Rossa */
+    font-family: 'UniqueRegular', sans-serif;
+    font-size: 1.2rem;
     text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: color 0.3s ease;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
 }
 
 .menu-list a:hover {
-    color: #000;
+    border-bottom: 2px solid #FF0000;
+    opacity: 0.7;
 }
 
 /* Sottomenu Passions */
@@ -59,16 +76,21 @@ body {
 }
 
 .submenu {
-    display: none; /* Nascosto di base */
+    display: none;
     position: absolute;
     top: 100%;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #FFC0CB; /* Stesso rosa dello sfondo */
+    padding: 15px;
     list-style: none;
-    background: white;
-    padding: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    min-width: 150px;
 }
 
 .dropdown:hover .submenu {
-    display: block; /* Appare al passaggio del mouse */
+    display: block;
+}
+
+.submenu li {
+    margin: 10px 0;
 }
