@@ -4,142 +4,115 @@
     src: url('Unique-Bold.otf') format('opentype');
     font-weight: bold;
 }
-
 @font-face {
-    font-family: 'UniqueLight';
-    src: url('Unique-Light.otf') format('opentype');
-    font-weight: 300;
+    font-family: 'UniqueThin';
+    src: url('Unique-Thin.otf') format('opentype');
+    font-weight: 100;
 }
 
-/* 2. RESET E BASE */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-}
-
+/* 2. BASE */
 body {
-    background-color: #FFC0CB; /* Rosa */
-    color: #FF0000;           /* Rosso */
+    background-color: #FFC0CB;
+    color: #FF0000;
     font-family: 'UniqueBold', sans-serif;
-    overflow-x: hidden;
-    min-height: 100vh;
+    margin: 0;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
-.hero {
-    text-align: center;
-    width: 100%;
-    padding: 20px;
-}
-
-/* 3. TITOLO CON ONDA LIQUIDA */
+/* 3. TITOLO EFFETTO PALLONCINO LAMINATO */
 .main-title {
     font-size: clamp(4.5rem, 20vw, 14rem);
     text-transform: uppercase;
     line-height: 0.85;
-    letter-spacing: -2px; /* Spaziatura compatta da PC */
+    letter-spacing: -2px;
     margin-bottom: 50px;
-    display: block;
-    cursor: default;
+    text-align: center;
 }
 
-/* Animazione singole lettere */
 .main-title span {
     display: inline-block;
-    /* Utilizza la variabile --i definita nell'HTML per calcolare il ritardo */
+    position: relative;
+    color: #FF0000;
+    
+    /* Effetto 3D e Lucido */
+    text-shadow: 
+        2px 2px 0px #b30000, 
+        0px 4px 10px rgba(0,0,0,0.2),
+        inset 0px 2px 5px rgba(255,255,255,0.8);
+    
+    /* Animazione Onda */
     animation: liquidWave 3s ease-in-out infinite;
     animation-delay: calc(0.1s * var(--i));
 }
 
+/* Effetto Riflesso Luce (Shine) */
+.main-title span::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.8) 50%, transparent 70%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 4s infinite linear;
+}
+
 @keyframes liquidWave {
     0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-30px) rotate(5deg); }
+    50% { transform: translateY(-25px) rotate(5deg) scale(1.05); }
 }
 
-.space {
-    display: inline-block;
-    width: 0.2em;
+@keyframes shine {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
 
-/* 4. MENU GIGANTE */
+/* 4. MENU E SOTTOMENU */
 .menu-list {
     list-style: none;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 50px;
+    gap: 40px;
 }
 
 .menu-list a, .menu-item {
     text-decoration: none;
     color: #FF0000;
-    font-size: clamp(2rem, 7vw, 3.5rem); /* Menu molto grande */
+    font-size: clamp(1.8rem, 6vw, 3rem);
     text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    display: inline-block;
 }
 
-/* Effetto solo contorno */
-.menu-list a:hover {
-    color: transparent;
-    -webkit-text-stroke: 1.5px #FF0000;
-    transform: scale(1.1);
+/* SOTTO-VOCI SOTTILI */
+.thin-link {
+    font-family: 'UniqueThin', sans-serif !important;
+    font-weight: 100 !important;
+    font-size: 1.8rem !important;
+    letter-spacing: 3px !important;
+    color: #FF0000;
+    text-transform: lowercase;
 }
 
-/* 5. SOTTOMENU (PIÙ LEGGERO) */
-.dropdown {
-    position: relative;
-}
-
+.dropdown { position: relative; }
 .submenu {
     display: none;
     position: absolute;
-    top: 100%;
-    left: 50%;
+    top: 100%; left: 50%;
     transform: translateX(-50%);
-    background-color: #FFC0CB;
-    padding: 15px;
+    background: #FFC0CB;
+    padding: 10px;
     list-style: none;
-    z-index: 100;
 }
+.dropdown:hover .submenu { display: block; }
 
-.dropdown:hover .submenu {
-    display: block;
-}
-
-.submenu a {
-    font-family: 'UniqueLight', sans-serif !important;
-    font-size: 2.2rem !important; /* Grande ma sottile */
-    text-transform: lowercase;
-    letter-spacing: 2px;
-    margin: 5px 0;
-}
-
-/* 6. OTTIMIZZAZIONE MOBILE (SAFARI/IPHONE) */
+/* 5. MOBILE SAFARI */
 @media (max-width: 768px) {
-    .main-title {
-        line-height: 1.2; /* Più spazio tra le righe su mobile */
-        letter-spacing: 0px; /* Lettere meno attaccate su mobile */
-        margin-bottom: 40px;
-    }
-    
-    .mobile-break {
-        display: block; /* Forza il cognome a capo su mobile */
-    }
-
-    .menu-list {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .submenu {
-        position: static;
-        transform: none;
-        padding-top: 10px;
-    }
+    .main-title { line-height: 1.2; letter-spacing: 1px; }
+    .menu-list { flex-direction: column; gap: 15px; }
+    .mobile-break { display: block; }
 }
