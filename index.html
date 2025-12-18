@@ -2,14 +2,14 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valeria Capretti | Portfolio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="page-wrapper">
-        <section class="viewport home-section">
+    <div id="main-container">
+        <section class="screen section-home">
             <h1 class="main-title">
                 <span style="--i:1">V</span><span style="--i:2">a</span><span style="--i:3">l</span><span style="--i:4">e</span><span style="--i:5">r</span><span style="--i:6">i</span><span style="--i:7">a</span>
                 <span class="space">&nbsp;</span>
@@ -19,38 +19,42 @@
 
             <nav class="creative-menu">
                 <ul class="menu-list">
-                    <li><a href="javascript:void(0)" onclick="openSection('PROJECTS')" class="menu-link">Projects</a></li>
-                    <li><a href="javascript:void(0)" onclick="openSection('ABOUT ME')" class="menu-link">About Me</a></li>
+                    <li><a href="javascript:void(0)" onclick="scrollToSection('PROJECTS')" class="menu-link">Projects</a></li>
+                    <li><a href="javascript:void(0)" onclick="scrollToSection('ABOUT ME')" class="menu-link">About Me</a></li>
                     <li class="dropdown">
                         <span class="menu-item">My Passions</span>
                         <ul class="submenu">
-                            <li><a href="javascript:void(0)" onclick="openSection('PHOTOGRAPHY')" class="thin-link">photography</a></li>
-                            <li><a href="javascript:void(0)" onclick="openSection('TRAVEL')" class="thin-link">travel</a></li>
+                            <li><a href="javascript:void(0)" onclick="scrollToSection('PHOTOGRAPHY')" class="sub-link">photography</a></li>
+                            <li><a href="javascript:void(0)" onclick="scrollToSection('TRAVEL')" class="sub-link">travel</a></li>
                         </ul>
                     </li>
-                    <li><a href="javascript:void(0)" onclick="openSection('CONTACTS')" class="menu-link">Contacts</a></li>
+                    <li><a href="javascript:void(0)" onclick="scrollToSection('CONTACTS')" class="menu-link">Contacts</a></li>
                 </ul>
             </nav>
 
-            <div class="bouquet-container">
-                <img src="fiori.png" alt="Mazzo di fiori" class="main-bouquet">
+            <div class="bouquet-wrap">
+                <img src="fiori.png" alt="Mazzo" class="img-fiori">
             </div>
         </section>
 
-        <section class="viewport detail-section">
-            <div class="table-scene">
+        <section class="screen section-table">
+            <div class="table-content">
                 <img src="vaso-con-fiori.png" class="vase-img">
-                <div class="book-box">
-                    <img src="libro-sotto-al-vaso.png" class="book-img">
-                    <h2 id="dynamic-title">TITOLO</h2>
-                </div>
-                <div class="food-decorations">
-                    <img src="torta-1.png" class="deco-item torta1">
-                    <img src="torta-2.png" class="deco-item torta2">
-                    <img src="caffe.png" class="deco-item caffe">
+                
+                <div class="table-surface">
+                    <img src="torta-1.png" class="table-item torta1">
+                    
+                    <div class="book-container">
+                        <img src="libro-sotto-al-vaso.png" class="book-img">
+                        <h2 id="dynamic-title">TITOLO</h2>
+                    </div>
+
+                    <img src="torta-2.png" class="table-item torta2">
+                    <img src="caffe.png" class="table-item caffe">
                 </div>
             </div>
-            <button class="back-btn" onclick="closeSection()">↑ Torna ai fiori</button>
+            
+            <button class="back-up" onclick="goHome()">↑</button>
         </section>
     </div>
 
