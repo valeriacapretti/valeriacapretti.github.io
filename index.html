@@ -8,43 +8,49 @@
 </head>
 <body>
 
-    <div id="scroll-wrapper">
-        <section class="section home">
-            <h1 class="main-title">
-                <span style="--i:1">V</span><span style="--i:2">a</span><span style="--i:3">l</span><span style="--i:4">e</span><span style="--i:5">r</span><span style="--i:6">i</span><span style="--i:7">a</span>
-                <span class="space">&nbsp;</span>
-                <br class="mobile-break">
-                <span style="--i:8">C</span><span style="--i:9">a</span><span style="--i:10">p</span><span style="--i:11">r</span><span style="--i:12">e</span><span style="--i:13">t</span><span style="--i:14">t</span><span style="--i:15">i</span>
-            </h1>
+    <div id="scroll-container">
+        <section class="page-section home">
+            <div class="content-top">
+                <h1 class="main-title">
+                    <span style="--i:1">V</span><span style="--i:2">a</span><span style="--i:3">l</span><span style="--i:4">e</span><span style="--i:5">r</span><span style="--i:6">i</span><span style="--i:7">a</span>
+                    <span class="space">&nbsp;</span>
+                    <br class="mobile-break">
+                    <span style="--i:8">C</span><span style="--i:9">a</span><span style="--i:10">p</span><span style="--i:11">r</span><span style="--i:12">e</span><span style="--i:13">t</span><span style="--i:14">t</span><span style="--i:15">i</span>
+                </h1>
 
-            <nav class="creative-menu">
-                <ul class="menu-list">
-                    <li><a href="javascript:void(0)" onclick="transitionTo('PROJECTS')" class="menu-link">Projects</a></li>
-                    <li><a href="javascript:void(0)" onclick="transitionTo('ABOUT ME')" class="menu-link">About Me</a></li>
-                    <li class="dropdown">
-                        <span class="menu-item">My Passions</span>
-                        <ul class="submenu">
-                            <li><a href="javascript:void(0)" onclick="transitionTo('PHOTOGRAPHY')" class="sub-link">photography</a></li>
-                            <li><a href="javascript:void(0)" onclick="transitionTo('TRAVEL')" class="sub-link">travel</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="javascript:void(0)" onclick="transitionTo('CONTACTS')" class="menu-link">Contacts</a></li>
-                </ul>
-            </nav>
+                <nav class="main-nav">
+                    <ul class="menu-horizontal">
+                        <li><a href="javascript:void(0)" onclick="goToDetail('PROJECTS')" class="nav-item">Projects</a></li>
+                        <li><a href="javascript:void(0)" onclick="goToDetail('ABOUT ME')" class="nav-item">About Me</a></li>
+                        <li class="dropdown">
+                            <span class="menu-trigger">My Passions</span>
+                            <ul class="submenu">
+                                <li><a href="javascript:void(0)" onclick="goToDetail('PHOTOGRAPHY')">photography</a></li>
+                                <li><a href="javascript:void(0)" onclick="goToDetail('TRAVEL')">travel</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="javascript:void(0)" onclick="goToDetail('CONTACTS')" class="nav-item">Contacts</a></li>
+                    </ul>
+                </nav>
+                <div class="red-line"></div>
+            </div>
 
-            <div class="mega-image-container">
-                <img src="libro-sotto-al-vaso.png" alt="Scena" class="main-scene-img">
-                <h2 id="book-title"></h2>
+            <div class="image-reveal-box">
+                <img src="libro-sotto-al-vaso.png" alt="Flowers" class="the-mega-img">
             </div>
         </section>
 
-        <section class="section table-details">
-            <div class="table-line"></div> <div class="food-container">
-                <img src="torta-1.png" class="food torta1">
-                <img src="torta-2.png" class="food torta2">
-                <img src="caffe.png" class="food caffe">
+        <section class="page-section table-view">
+            <div class="table-surface">
+                <h2 id="title-on-book"></h2>
+                
+                <div class="items-row">
+                    <img src="torta-1.png" class="table-object torta1">
+                    <div class="book-placeholder"></div> <img src="torta-2.png" class="table-object torta2">
+                    <img src="caffe.png" class="table-object caffe">
+                </div>
             </div>
-            <button class="back-btn" onclick="resetView()">↑</button>
+            <button class="btn-up" onclick="goBackHome()">↑</button>
         </section>
     </div>
 
