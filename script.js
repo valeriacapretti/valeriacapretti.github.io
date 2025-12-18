@@ -1,13 +1,13 @@
 function openSection(categoryTitle) {
-    // 1. Aggiorna il titolo sul libro
-    const titleDisplay = document.getElementById('dynamic-title');
-    titleDisplay.innerText = categoryTitle;
+    // Cambia il testo sul libro
+    const titleElement = document.getElementById('dynamic-title');
+    titleElement.innerText = categoryTitle;
 
-    // 2. Scorri la "telecamera" verso il basso
+    // Fa scorrere il wrapper per mostrare la sezione dettaglio
     document.body.classList.add('is-viewing-detail');
 }
 
 function closeSection() {
-    // Torna alla home (fiori sciolti)
+    // Torna alla schermata principale
     document.body.classList.remove('is-viewing-detail');
 }
