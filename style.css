@@ -88,7 +88,7 @@ body {
 /* L'IMMAGINE GIGANTE - SOLO FIORI VISIBILI */
 .image-anchor {
     position: absolute;
-    bottom: -60vh; /* SPOSTATA MOLTO GIÙ per mostrare solo i fiori */
+    bottom: -70vh; /* SPOSTATA MOLTO GIÙ per mostrare solo i fiori */
     width: 100%;
     display: flex;
     justify-content: center;
