@@ -8,9 +8,9 @@
 </head>
 <body>
 
-    <div id="scroll-container">
-        <section class="page-section home">
-            <div class="content-top">
+    <div id="master-wrapper">
+        <section class="screen home">
+            <div class="header-content">
                 <h1 class="main-title">
                     <span style="--i:1">V</span><span style="--i:2">a</span><span style="--i:3">l</span><span style="--i:4">e</span><span style="--i:5">r</span><span style="--i:6">i</span><span style="--i:7">a</span>
                     <span class="space">&nbsp;</span>
@@ -18,39 +18,39 @@
                     <span style="--i:8">C</span><span style="--i:9">a</span><span style="--i:10">p</span><span style="--i:11">r</span><span style="--i:12">e</span><span style="--i:13">t</span><span style="--i:14">t</span><span style="--i:15">i</span>
                 </h1>
 
-                <nav class="main-nav">
-                    <ul class="menu-horizontal">
-                        <li><a href="javascript:void(0)" onclick="goToDetail('PROJECTS')" class="nav-item">Projects</a></li>
-                        <li><a href="javascript:void(0)" onclick="goToDetail('ABOUT ME')" class="nav-item">About Me</a></li>
-                        <li class="dropdown">
-                            <span class="menu-trigger">My Passions</span>
-                            <ul class="submenu">
-                                <li><a href="javascript:void(0)" onclick="goToDetail('PHOTOGRAPHY')">photography</a></li>
-                                <li><a href="javascript:void(0)" onclick="goToDetail('TRAVEL')">travel</a></li>
+                <nav class="nav-container">
+                    <ul class="nav-menu">
+                        <li><a href="javascript:void(0)" onclick="revealDetail('PROJECTS')" class="nav-link">Projects</a></li>
+                        <li><a href="javascript:void(0)" onclick="revealDetail('ABOUT ME')" class="nav-link">About Me</a></li>
+                        <li class="nav-dropdown">
+                            <span class="nav-trigger">My Passions</span>
+                            <ul class="nav-submenu">
+                                <li><a href="javascript:void(0)" onclick="revealDetail('PHOTOGRAPHY')">photography</a></li>
+                                <li><a href="javascript:void(0)" onclick="revealDetail('TRAVEL')">travel</a></li>
                             </ul>
                         </li>
-                        <li><a href="javascript:void(0)" onclick="goToDetail('CONTACTS')" class="nav-item">Contacts</a></li>
+                        <li><a href="javascript:void(0)" onclick="revealDetail('CONTACTS')" class="nav-link">Contacts</a></li>
                     </ul>
+                    <div class="separator-line"></div>
                 </nav>
-                <div class="red-line"></div>
             </div>
 
-            <div class="image-reveal-box">
-                <img src="libro-sotto-al-vaso.png" alt="Flowers" class="the-mega-img">
+            <div class="image-anchor">
+                <img src="libro-sotto-al-vaso.png" alt="Flowers" class="scrolling-image">
             </div>
         </section>
 
-        <section class="page-section table-view">
-            <div class="table-surface">
+        <section class="screen table-layout">
+            <div class="table-content">
                 <h2 id="title-on-book"></h2>
                 
-                <div class="items-row">
-                    <img src="torta-1.png" class="table-object torta1">
-                    <div class="book-placeholder"></div> <img src="torta-2.png" class="table-object torta2">
-                    <img src="caffe.png" class="table-object caffe">
+                <div class="food-row">
+                    <img src="torta-1.png" class="floating-food t1">
+                    <div class="center-gap"></div> <img src="torta-2.png" class="floating-food t2">
+                    <img src="caffe.png" class="floating-food c1">
                 </div>
             </div>
-            <button class="btn-up" onclick="goBackHome()">↑</button>
+            <button class="up-arrow" onclick="goBack()">↑</button>
         </section>
     </div>
 
