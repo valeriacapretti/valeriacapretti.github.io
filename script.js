@@ -1,12 +1,12 @@
-function scrollToSection(title) {
-    // Aggiorna il titolo sul libro
-    document.getElementById('dynamic-title').innerText = title;
-    
-    // Scorrimento fluido verso il basso
-    document.getElementById('main-container').style.transform = 'translateY(-100vh)';
+function transitionTo(category) {
+    // 1. Inserisce il nome nel libro
+    document.getElementById('book-title').innerText = category;
+
+    // 2. Muove l'intero wrapper verso l'alto
+    document.getElementById('scroll-wrapper').style.transform = 'translateY(-100vh)';
 }
 
-function goHome() {
-    // Torna su
-    document.getElementById('main-container').style.transform = 'translateY(0)';
+function resetView() {
+    // Torna alla home
+    document.getElementById('scroll-wrapper').style.transform = 'translateY(0)';
 }
