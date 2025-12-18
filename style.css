@@ -8,30 +8,31 @@ body {
     background-color: #FFC0CB;
     color: #FF0000;
     font-family: 'UniqueBold', sans-serif;
-    overflow: hidden; /* Blocchiamo lo scroll manuale per usare quello JS */
+    overflow: hidden;
+    height: 100vh;
 }
 
-#main-container {
-    transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+#scroll-wrapper {
+    transition: transform 1.5s cubic-bezier(0.65, 0, 0.35, 1);
     height: 200vh;
 }
 
-.screen {
+.section {
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-    padding-top: 5vh; /* Sposta Valeria Capretti più in basso */
 }
 
-/* TITOLO */
+/* POSIZIONAMENTO TITOLO (Più giù rispetto al bordo) */
 .main-title {
-    font-size: clamp(3rem, 12vw, 8rem);
+    margin-top: 8vh;
+    font-size: clamp(3rem, 10vw, 7rem);
     text-transform: uppercase;
     line-height: 0.9;
     text-align: center;
-    margin-bottom: 20px;
+    z-index: 10;
 }
 
 .main-title span {
@@ -46,76 +47,95 @@ body {
 }
 
 /* MENU */
-.menu-list { list-style: none; display: flex; gap: 30px; margin-bottom: 30px; }
+.creative-menu { margin: 30px 0; z-index: 10; }
+.menu-list { list-style: none; display: flex; gap: 40px; }
 .menu-link, .menu-item {
-    font-size: clamp(1.2rem, 3vw, 2.2rem);
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
     text-decoration: none;
     color: #FF0000;
     text-transform: uppercase;
     transition: 0.3s;
 }
 
-.menu-link:hover { color: transparent; -webkit-text-stroke: 1px #FF0000; }
+.menu-link:hover {
+    color: transparent;
+    -webkit-text-stroke: 1px #FF0000;
+}
 
-/* SOTTOMENU: Stesso font, più piccolo e sottile */
+/* SOTTOMENU */
 .dropdown { position: relative; }
-.submenu { display: none; position: absolute; top: 100%; left: 0; background: #FFC0CB; list-style: none; padding: 10px 0; }
+.submenu { display: none; position: absolute; background: #FFC0CB; padding: 10px; list-style: none; }
 .dropdown:hover .submenu { display: block; }
 .sub-link {
-    font-family: 'UniqueLight', sans-serif; /* Stesso font ma variante Light */
-    font-size: 1.2rem;
+    font-family: 'UniqueLight', sans-serif;
+    font-size: 1rem;
     color: #FF0000;
     text-decoration: none;
-    display: block;
-    margin-bottom: 5px;
+    text-transform: lowercase;
 }
 
-/* FIORI E VIBRAZIONE */
-.bouquet-wrap { width: min(400px, 70vw); }
-.img-fiori { width: 100%; height: auto; transition: 0.3s; }
-.menu-list:hover ~ .bouquet-wrap .img-fiori { animation: vibrate 0.3s infinite; }
+/* L'IMMAGINE GIGANTE (Protagonista) */
+.mega-image-container {
+    position: absolute;
+    bottom: -150px; /* Spunta dal basso nella home */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.main-scene-img {
+    width: 120vw; /* Molto ingrandita per mostrare solo i fiori all'inizio */
+    max-width: 1400px;
+    height: auto;
+    transition: transform 0.5s ease;
+}
+
+/* Effetto vibrazione sui fiori quando passi sul menu */
+.menu-list:hover ~ .mega-image-container .main-scene-img {
+    animation: vibrate 0.3s infinite;
+}
 
 @keyframes vibrate {
-    0% { transform: translate(0,0); }
-    25% { transform: translate(2px, -2px); }
-    50% { transform: translate(-2px, 2px); }
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(0.5deg) translateY(-2px); }
+    100% { transform: rotate(0deg); }
 }
 
-/* TAVOLA IMBANDITA (Sezione 2) */
-.section-table { justify-content: flex-start; padding-top: 0; }
-.table-content { display: flex; flex-direction: column; align-items: center; width: 100%; }
-
-.vase-img { width: 250px; z-index: 10; margin-bottom: -40px; }
-
-/* Surface: mette libro e torte sullo stesso piano */
-.table-surface {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    width: 90%;
-    position: relative;
-}
-
-.book-container { position: relative; width: 400px; }
-.book-img { width: 100%; }
-#dynamic-title {
+/* Titolo dentro il libro */
+#book-title {
     position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2.5rem;
+    bottom: 22%; /* Regola questo in base alla posizione del libro nell'immagine */
+    font-size: clamp(2rem, 5vw, 4rem);
     pointer-events: none;
 }
 
-.table-item { width: 120px; height: auto; }
+/* DETTAGLI TAVOLO (Seconda Sezione) */
+.table-details { justify-content: flex-start; }
 
-.back-up {
-    position: absolute; bottom: 20px;
+.table-line {
+    width: 80%;
+    height: 2px;
+    background-color: #FF0000;
+    margin-top: 10vh;
+}
+
+.food-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-top: -5vh; /* Per farli sembrare appoggiati vicino al libro */
+}
+
+.food { width: 150px; height: auto; z-index: 5; }
+
+.back-btn {
+    margin-top: 50px;
     background: none; border: 1px solid #FF0000;
-    color: #FF0000; padding: 10px; cursor: pointer;
+    color: #FF0000; padding: 10px 20px; cursor: pointer;
 }
 
 @media (max-width: 768px) {
-    .table-surface { flex-direction: column; }
     .mobile-break { display: block; }
+    .food-container { flex-direction: column; gap: 20px; }
 }
