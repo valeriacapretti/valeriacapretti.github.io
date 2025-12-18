@@ -1,8 +1,12 @@
-function openSection(title) {
+function scrollToSection(title) {
+    // Aggiorna il titolo sul libro
     document.getElementById('dynamic-title').innerText = title;
-    document.body.classList.add('is-viewing-detail');
+    
+    // Scorrimento fluido verso il basso
+    document.getElementById('main-container').style.transform = 'translateY(-100vh)';
 }
 
-function closeSection() {
-    document.body.classList.remove('is-viewing-detail');
+function goHome() {
+    // Torna su
+    document.getElementById('main-container').style.transform = 'translateY(0)';
 }
