@@ -8,29 +8,55 @@
 </head>
 <body>
 
-    <main class="hero">
-        <h1 class="main-title">
-            <span style="--i:1">V</span><span style="--i:2">a</span><span style="--i:3">l</span><span style="--i:4">e</span><span style="--i:5">r</span><span style="--i:6">i</span><span style="--i:7">a</span>
-            <span class="space">&nbsp;</span>
-            <br class="mobile-break">
-            <span style="--i:8">C</span><span style="--i:9">a</span><span style="--i:10">p</span><span style="--i:11">r</span><span style="--i:12">e</span><span style="--i:13">t</span><span style="--i:14">t</span><span style="--i:15">i</span>
-        </h1>
-        
-        <nav class="creative-menu">
-            <ul class="menu-list">
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#about">About Me</a></li>
-                <li class="dropdown">
-                    <span class="menu-item">My Passions</span>
-                    <ul class="submenu">
-                        <li><a href="#photography">photography</a></li>
-                        <li><a href="#travel">travel</a></li>
-                    </ul>
-                </li>
-                <li><a href="#contacts">Contacts</a></li>
-            </ul>
-        </nav>
-    </main>
+    <div id="page-wrapper">
+        <section class="viewport home-section">
+            <h1 class="main-title">
+                <span style="--i:1">V</span><span style="--i:2">a</span><span style="--i:3">l</span><span style="--i:4">e</span><span style="--i:5">r</span><span style="--i:6">i</span><span style="--i:7">a</span>
+                <span class="space">&nbsp;</span>
+                <br class="mobile-break">
+                <span style="--i:8">C</span><span style="--i:9">a</span><span style="--i:10">p</span><span style="--i:11">r</span><span style="--i:12">e</span><span style="--i:13">t</span><span style="--i:14">t</span><span style="--i:15">i</span>
+            </h1>
 
+            <div class="bouquet-container">
+                <img src="fiori.png" alt="Mazzo di fiori" class="main-bouquet">
+                
+                <nav class="flower-menu">
+                    <a href="javascript:void(0)" onclick="openSection('PROJECTS')" class="flower-label projects">Projects</a>
+                    <a href="javascript:void(0)" onclick="openSection('ABOUT ME')" class="flower-label about">About Me</a>
+                    
+                    <div class="dropdown-flower">
+                        <span class="flower-label passions">My Passions</span>
+                        <div class="submenu-flower">
+                            <a href="javascript:void(0)" onclick="openSection('PHOTOGRAPHY')" class="thin-link">photography</a>
+                            <a href="javascript:void(0)" onclick="openSection('TRAVEL')" class="thin-link">travel</a>
+                        </div>
+                    </div>
+                    
+                    <a href="javascript:void(0)" onclick="openSection('CONTACTS')" class="flower-label contacts">Contacts</a>
+                </nav>
+            </div>
+        </section>
+
+        <section class="viewport detail-section">
+            <div class="table-scene">
+                <img src="vaso-con-fiori.png" class="vase-img">
+                
+                <div class="book-box">
+                    <img src="libro-sotto-al-vaso.png" class="book-img">
+                    <h2 id="dynamic-title" class="balloon-text">TITOLO</h2>
+                </div>
+
+                <div class="food-decorations">
+                    <img src="torta-1.png" class="deco-item torta1">
+                    <img src="torta-2.png" class="deco-item torta2">
+                    <img src="caffe.png" class="deco-item caffe">
+                </div>
+            </div>
+
+            <button class="back-btn" onclick="closeSection()">↑ Torna ai fiori</button>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
