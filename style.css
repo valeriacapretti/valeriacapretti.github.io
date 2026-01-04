@@ -6,120 +6,140 @@
 }
 
 @font-face {
-    font-family: 'UniqueRegular';
-    src: url('Unique-Regular.otf') format('opentype');
-    font-weight: normal;
+    font-family: 'UniqueLight';
+    src: url('Unique-Light.otf') format('opentype');
+    font-weight: 300;
 }
 
-/* 2. BASE */
+/* 2. RESET E BASE */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-font-smoothing: antialiased; /* Migliora resa font su Safari */
+    -webkit-font-smoothing: antialiased;
 }
 
 body {
-    background-color: #FFC0CB;
-    color: #FF0000;
+    background-color: #FFC0CB; /* Rosa */
+    color: #FF0000;           /* Rosso */
     font-family: 'UniqueBold', sans-serif;
-    overflow-x: hidden; /* Evita lo scroll orizzontale su mobile */
+    overflow-x: hidden;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* 3. CONTENITORE */
 .hero {
     text-align: center;
     width: 100%;
     padding: 20px;
 }
 
-/* 4. TITOLO CON ONDA (Ottimizzato Safari) */
+/* 3. TITOLO CON ONDA LIQUIDA */
 .main-title {
-    font-size: clamp(4rem, 20vw, 13rem); /* Leggermente ridotto il massimo per sicurezza */
+    font-size: clamp(4.5rem, 20vw, 14rem);
     text-transform: uppercase;
     line-height: 0.85;
-    letter-spacing: -1px; /* Spaziatura compatta */
-    margin-bottom: 20px;
-    display: inline-block;
-    
-    animation: wave 4s ease-in-out infinite;
-    transition: transform 0.5s ease-out;
+    letter-spacing: -2px; /* Spaziatura compatta da PC */
+    margin-bottom: 50px;
+    display: block;
     cursor: default;
-    
-    /* Forza accelerazione hardware per animazioni fluide su iPhone */
-    will-change: transform;
 }
 
-/* 5. MENU CON OUTLINE */
+/* Animazione singole lettere */
+.main-title span {
+    display: inline-block;
+    /* Utilizza la variabile --i definita nell'HTML per calcolare il ritardo */
+    animation: liquidWave 3s ease-in-out infinite;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes liquidWave {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-30px) rotate(5deg); }
+}
+
+.space {
+    display: inline-block;
+    width: 0.2em;
+}
+
+/* 4. MENU GIGANTE */
 .menu-list {
     list-style: none;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Fondamentale per il telefono: le voci vanno a capo se necessario */
-    gap: 30px;
+    flex-wrap: wrap;
+    gap: 50px;
 }
 
 .menu-list a, .menu-item {
     text-decoration: none;
     color: #FF0000;
-    font-size: clamp(1.5rem, 6vw, 2.5rem); /* Dimensione dinamica per mobile */
+    font-size: clamp(2rem, 7vw, 3.5rem); /* Menu molto grande */
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: all 0.3s ease;
-    font-family: 'UniqueBold', sans-serif;
     display: inline-block;
 }
 
-/* Effetto solo contorno su hover */
+/* Effetto solo contorno */
 .menu-list a:hover {
     color: transparent;
     -webkit-text-stroke: 1.5px #FF0000;
-    transform: translateY(-3px);
+    transform: scale(1.1);
 }
 
-/* 6. OTTIMIZZAZIONE SPECIFICA PER MOBILE (iPhone/Safari) */
-@media (max-width: 768px) {
-    body {
-        overflow-y: auto; /* Permette lo scroll verticale se il menu è lungo */
-    }
-    
-    .menu-list {
-        flex-direction: column; /* Menu in verticale su telefono */
-        gap: 15px;
-        margin-top: 30px;
-    }
-
-    .main-title {
-        letter-spacing: -2px;
-        margin-bottom: 10px;
-    }
-
-    .submenu {
-        position: static; /* Su mobile il sottomenu appare sotto la voce, non sopra */
-        transform: none;
-        padding: 5px;
-    }
-}
-
-/* 7. ANIMAZIONE ONDA */
-@keyframes wave {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    25% { transform: translateY(-8px) rotate(-0.5deg); }
-    50% { transform: translateY(4px) rotate(1deg); }
-    75% { transform: translateY(-4px) rotate(-0.3deg); }
-}
-
-/* Sottomenu */
-.dropdown:hover .submenu {
-    display: block;
+/* 5. SOTTOMENU (PIÙ LEGGERO) */
+.dropdown {
+    position: relative;
 }
 
 .submenu {
     display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: #FFC0CB;
+    padding: 15px;
     list-style: none;
+    z-index: 100;
+}
+
+.dropdown:hover .submenu {
+    display: block;
+}
+
+.submenu a {
+    font-family: 'UniqueLight', sans-serif !important;
+    font-size: 2.2rem !important; /* Grande ma sottile */
+    text-transform: lowercase;
+    letter-spacing: 2px;
+    margin: 5px 0;
+}
+
+/* 6. OTTIMIZZAZIONE MOBILE (SAFARI/IPHONE) */
+@media (max-width: 768px) {
+    .main-title {
+        line-height: 1.2; /* Più spazio tra le righe su mobile */
+        letter-spacing: 0px; /* Lettere meno attaccate su mobile */
+        margin-bottom: 40px;
+    }
+    
+    .mobile-break {
+        display: block; /* Forza il cognome a capo su mobile */
+    }
+
+    .menu-list {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .submenu {
+        position: static;
+        transform: none;
+        padding-top: 10px;
+    }
 }
