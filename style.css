@@ -85,7 +85,7 @@ body {
 .tab-item {
     text-decoration: none;
     color: #FF0000;
-    background-color: #fff; /* Colore base linguetta */
+    background-color: #fdf5e6; /* Colore base linguetta */
     font-size: clamp(2rem, 5vw, 3.5rem); /* Grandezza originale del tuo menu */
     text-transform: uppercase;
     letter-spacing: 1px;
