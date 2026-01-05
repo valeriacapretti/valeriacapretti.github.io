@@ -1,112 +1,173 @@
-/* 1. FONT */
-@font-face { font-family: 'UniqueBold'; src: url('Unique-Bold.otf') format('opentype'); }
-@font-face { font-family: 'UniqueLight'; src: url('Unique-Light.otf') format('opentype'); }
+/* 1. CARICAMENTO FONT (Originale) */
+@font-face {
+    font-family: 'UniqueBold';
+    src: url('Unique-Bold.otf') format('opentype');
+    font-weight: bold;
+}
 
-/* 2. BASE */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', sans-serif; overflow-x: hidden; }
+@font-face {
+    font-family: 'UniqueLight';
+    src: url('Unique-Light.otf') format('opentype');
+    font-weight: 300;
+}
 
-.hero { display: flex; flex-direction: column; align-items: center; padding: 40px 15px; }
+/* 2. RESET E BASE (Originale) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
 
-/* 3. TITOLO */
-.main-title {
-    font-size: clamp(3rem, 12vw, 10rem);
-    text-transform: uppercase;
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #FFC0CB; /* Rosa */
+    color: #FF0000;           /* Rosso */
+    font-family: 'UniqueBold', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.hero {
     text-align: center;
-    margin-bottom: 50px;
-    line-height: 0.9;
-}
-
-/* 4. RUBRICA */
-.notebook-container {
     width: 100%;
-    max-width: 1100px;
-    margin-top: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* 5. LINGUETTE (TABS) DISTINTE */
+/* 3. TITOLO CON ONDA LIQUIDA (Esattamente come il tuo originale) */
+.main-title {
+    font-size: clamp(4.5rem, 20vw, 14rem);
+    text-transform: uppercase;
+    line-height: 0.85;
+    letter-spacing: -2px;
+    margin-bottom: 50px;
+    display: block;
+    cursor: default;
+}
+
+.main-title span {
+    display: inline-block;
+    animation: liquidWave 3s ease-in-out infinite;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes liquidWave {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-30px) rotate(5deg); }
+}
+
+.space {
+    display: inline-block;
+    width: 0.2em;
+}
+
+/* 4. RUBRICA (Struttura) */
+.notebook-container {
+    width: 95%;
+    max-width: 1300px;
+    margin-top: 50px;
+}
+
+/* 5. LINGUETTE (Stesse proprietà del tuo menu originale) */
 .notebook-tabs {
     display: flex;
     justify-content: flex-start;
-    gap: 8px; /* Spazio tra le linguette per distinguerle */
-    padding-left: 40px;
+    gap: 15px; /* Spazio tra le linguette */
+    padding-left: 50px;
 }
 
 .tab-item {
     text-decoration: none;
-    padding: 20px 30px;
-    font-size: clamp(1.2rem, 3vw, 2.2rem); /* Grandi ma leggibili */
+    color: #FF0000;
+    background-color: #fff; /* Colore base linguetta */
+    font-size: clamp(2rem, 5vw, 3.5rem); /* Grandezza originale del tuo menu */
     text-transform: uppercase;
-    border-radius: 15px 15px 0 0;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    padding: 20px 40px;
     border: 2px solid #FF0000;
     border-bottom: none;
-    transition: all 0.3s ease;
+    border-radius: 20px 20px 0 0;
     position: relative;
-    bottom: -2px; /* Si incastra perfettamente sul foglio */
-    z-index: 0;
+    bottom: -2px; /* Si appoggia sulla pagina */
+    z-index: 1;
 }
 
-/* Colori alternati per non farle fondere */
-.color-1 { background-color: #ffffff; color: #FF0000 !important; }
-.color-2 { background-color: #ffe4e1; color: #FF0000 !important; }
-.color-3 { background-color: #ffffff; color: #FF0000 !important; }
-.color-4 { background-color: #ffe4e1; color: #FF0000 !important; }
-.color-5 { background-color: #ffffff; color: #FF0000 !important; }
-
+/* EFFETTO SOLO CONTORNO (Come il tuo originale) */
 .tab-item:hover {
-    transform: translateY(-10px);
-    z-index: 10;
-    background-color: #FF0000;
-    color: #fff !important;
+    color: transparent;
+    -webkit-text-stroke: 1.5px #FF0000;
+    transform: scale(1.05) translateY(-5px);
+    background-color: #fdf5e6;
 }
 
-/* 6. PAGINA RUBRICA */
+/* 6. PAGINA RUBRICA INGIALLITA */
 .notebook-page {
     position: relative;
-    background: #fdfaf0; /* Giallino carta */
+    background: #fdf5e6; /* Avorio */
     min-height: 700px;
     border: 2px solid #FF0000;
-    border-radius: 20px;
-    padding: 60px 80px;
-    box-shadow: 10px 10px 0px rgba(255, 0, 0, 0.1);
-    z-index: 5;
+    border-radius: 25px;
+    padding: 80px 10%;
+    box-shadow: 15px 15px 0px rgba(255, 0, 0, 0.1);
+    z-index: 2;
 }
 
 /* 7. BUCHI */
 .ring-holes {
     position: absolute;
-    left: 25px;
+    left: 40px;
     top: 0;
     bottom: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
+    padding: 40px 0;
 }
 
 .hole {
-    width: 22px;
-    height: 22px;
-    background-color: #FFC0CB; /* Mostra il rosa del fondo */
+    width: 25px;
+    height: 25px;
+    background-color: #FFC0CB; /* Sfondo rosa visibile */
     border-radius: 50%;
-    border: 2px solid rgba(0,0,0,0.05);
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1);
 }
 
-/* CONTENUTI SEZIONI */
-.content-section { display: none; padding-top: 20px; }
+/* CONTENUTI */
+.content-section { display: none; }
 .content-section:target { display: block; animation: fadeIn 0.5s; }
 .content-section:target ~ .placeholder-text { display: none; }
 
-.notebook-page h2 { font-size: 4rem; margin-bottom: 20px; }
-.notebook-page p { font-family: 'UniqueLight', sans-serif; font-size: 1.8rem; line-height: 1.4; color: #333; }
+.notebook-page h2 {
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: #FF0000;
+    margin-bottom: 30px;
+}
+
+.notebook-page p {
+    font-family: 'UniqueLight', sans-serif;
+    font-size: 2rem;
+    color: #333;
+    line-height: 1.4;
+}
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* MOBILE */
+/* 8. OTTIMIZZAZIONE MOBILE (Originale) */
 @media (max-width: 768px) {
-    .notebook-tabs { gap: 4px; padding-left: 10px; flex-wrap: wrap; }
-    .tab-item { padding: 10px 15px; font-size: 1rem; border-radius: 8px 8px 0 0; }
-    .notebook-page { padding: 40px 30px; }
-    .ring-holes { left: 10px; }
-    .hole { width: 15px; height: 15px; }
+    .main-title {
+        line-height: 1.2;
+        letter-spacing: 0px;
+        margin-bottom: 40px;
+    }
+    .mobile-break { display: block; }
+    .notebook-tabs { padding-left: 10px; gap: 5px; }
+    .tab-item { padding: 10px 15px; font-size: 1.2rem; }
 }
