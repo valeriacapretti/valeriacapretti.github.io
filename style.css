@@ -1,18 +1,13 @@
 /* 1. CARICAMENTO FONT */
-@font-face {
-    font-family: 'UniqueBold';
-    src: url('Unique-Bold.otf') format('opentype');
-    font-weight: bold;
-}
-@font-face {
-    font-family: 'UniqueLight';
-    src: url('Unique-Light.otf') format('opentype');
-    font-weight: 300;
-}
+@font-face { font-family: 'UniqueBold'; src: url('Unique-Bold.otf') format('opentype'); font-weight: bold; }
+@font-face { font-family: 'UniqueLight'; src: url('Unique-Light.otf') format('opentype'); font-weight: 300; }
 
 /* 2. RESET E BASE */
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+/* SCORRIMENTO FLUIDO */
 html { scroll-behavior: smooth; }
+
 body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', sans-serif; overflow-x: hidden; min-height: 100vh; }
 
 .hero { text-align: center; width: 100%; padding: 20px; display: flex; flex-direction: column; align-items: center; }
@@ -20,14 +15,14 @@ body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', san
 /* 3. SISTEMA TITOLO DOPPIO */
 .title-wrapper {
     position: relative;
-    display: grid; /* Sovrappone gli elementi esattamente al centro */
+    display: grid;
     place-items: center;
     width: 100%;
     margin-bottom: 50px;
 }
 
 .main-title {
-    grid-area: 1 / 1; /* Entrambi i titoli occupano la stessa "cella" della griglia */
+    grid-area: 1 / 1;
     font-size: clamp(4.5rem, 20vw, 14rem);
     text-transform: uppercase;
     line-height: 0.85;
@@ -35,20 +30,9 @@ body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', san
     cursor: default;
 }
 
-/* Ombra Avorio */
-.title-shadow {
-    color: #fdf5e6;
-    transform: translate(6px, 6px); /* Spostamento fisso controllato */
-    z-index: 1;
-}
+.title-shadow { color: #fdf5e6; transform: translate(6px, 6px); z-index: 1; }
+.title-main { color: #FF0000; z-index: 2; }
 
-/* Titolo Rosso sopra */
-.title-main {
-    color: #FF0000;
-    z-index: 2;
-}
-
-/* Animazione */
 .main-title span {
     display: inline-block;
     animation: liquidWave 3s ease-in-out infinite;
@@ -65,7 +49,7 @@ body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', san
 /* 4. RUBRICA */
 .notebook-container { width: 95%; max-width: 1300px; margin-top: 50px; }
 
-/* 5. LINGUETTE (Stile Originale + Avorio) */
+/* 5. LINGUETTE */
 .notebook-tabs { display: flex; justify-content: flex-start; gap: 15px; padding-left: 50px; }
 
 .tab-item {
@@ -110,8 +94,7 @@ body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', san
 .ring-holes {
     position: absolute;
     left: 40px;
-    top: 0;
-    bottom: 0;
+    top: 0; bottom: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -119,48 +102,38 @@ body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', san
 }
 
 .hole {
-    width: 25px;
-    height: 25px;
+    width: 25px; height: 25px;
     background-color: #FFC0CB;
     border-radius: 50%;
     box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1);
 }
 
-/* CONTENUTI */
+/* 8. CONTENUTI CON TRANSIZIONE LENTA */
 .content-section { 
     display: none; 
+    opacity: 0;
 }
 
 .content-section:target { 
     display: block; 
-    animation: slideUpFade 1.2s cubic-bezier(0.25, 1, 0.5, 1); /* Transizione fluida e lenta */
+    opacity: 1;
+    animation: slowReveal 1.5s cubic-bezier(0.4, 0, 0.2, 1); /* Transizione molto fluida */
 }
 
-.content-section:target ~ .placeholder-text { 
-    display: none; 
+@keyframes slowReveal {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Nuova animazione per il contenuto che "sale" lentamente */
-@keyframes slideUpFade {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+.content-section:target ~ .placeholder-text { display: none; }
 
-/* Rimuovi o commenta scroll-behavior: smooth dal reset se vuoi che 
-   il JS abbia il controllo totale, ma puoi anche lasciarlo per sicurezza */
-html { 
-    scroll-behavior: smooth; 
-}
-/* 8. MOBILE */
+.notebook-page h2 { font-size: clamp(3rem, 8vw, 6rem); color: #FF0000; margin-bottom: 30px; text-transform: uppercase; }
+.notebook-page p { font-family: 'UniqueLight', sans-serif; font-size: 2rem; color: #333; line-height: 1.4; }
+
+/* 9. MOBILE */
 @media (max-width: 768px) {
     .main-title { line-height: 1.2; letter-spacing: 0px; }
-    .title-shadow { transform: translate(3px, 3px); } /* Ridotta ombra su mobile */
+    .title-shadow { transform: translate(3px, 3px); }
     .mobile-break { display: block; }
     .notebook-tabs { padding-left: 10px; gap: 5px; }
     .tab-item { padding: 10px 15px; font-size: 1.2rem; }
