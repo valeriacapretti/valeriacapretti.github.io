@@ -36,11 +36,7 @@
 
             <div class="notebook-page">
                 <div class="ring-holes">
-                    <div class="hole"></div>
-                    <div class="hole"></div>
-                    <div class="hole"></div>
-                    <div class="hole"></div>
-                    <div class="hole"></div>
+                    <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
                 </div>
 
                 <div id="projects" class="content-section">
@@ -74,29 +70,6 @@
             </div>
         </section>
     </main>
-<script>
-        document.querySelectorAll('.tab-item').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                // Calcoliamo la posizione del target
-                const offset = targetElement.getBoundingClientRect().top + window.pageYOffset - 50;
 
-                // Scrolling personalizzato lento
-                window.scrollTo({
-                    top: offset,
-                    behavior: 'smooth'
-                });
-
-                // Aggiorniamo l'URL senza saltare bruscamente
-                history.pushState(null, null, targetId);
-                
-                // Trigger manuale per mostrare la sezione (visto che usiamo :target nel CSS)
-                location.hash = targetId;
-            });
-        });
-    </script>
 </body>
 </html>
