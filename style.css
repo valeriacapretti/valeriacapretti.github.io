@@ -19,127 +19,145 @@
     -webkit-font-smoothing: antialiased;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: #FFC0CB; /* Rosa */
     color: #FF0000;           /* Rosso */
     font-family: 'UniqueBold', sans-serif;
     overflow-x: hidden;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .hero {
-    text-align: center;
-    width: 100%;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
 }
 
-/* 3. TITOLO CON ONDA LIQUIDA */
+/* 3. TITOLO ANIMATO */
 .main-title {
-    font-size: clamp(4.5rem, 20vw, 14rem);
+    font-size: clamp(3rem, 15vw, 10rem);
     text-transform: uppercase;
     line-height: 0.85;
-    letter-spacing: -2px; /* Spaziatura compatta da PC */
-    margin-bottom: 50px;
-    display: block;
-    cursor: default;
+    letter-spacing: -2px;
+    margin-bottom: 80px;
+    text-align: center;
 }
 
-/* Animazione singole lettere */
 .main-title span {
     display: inline-block;
-    /* Utilizza la variabile --i definita nell'HTML per calcolare il ritardo */
     animation: liquidWave 3s ease-in-out infinite;
     animation-delay: calc(0.1s * var(--i));
 }
 
 @keyframes liquidWave {
     0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-30px) rotate(5deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
 }
 
-.space {
-    display: inline-block;
-    width: 0.2em;
-}
+.space { display: inline-block; width: 0.2em; }
 
-/* 4. MENU GIGANTE */
-.menu-list {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 50px;
-}
-
-.menu-list a, .menu-item {
-    text-decoration: none;
-    color: #FF0000;
-    font-size: clamp(2rem, 7vw, 3.5rem); /* Menu molto grande */
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    display: inline-block;
-}
-
-/* Effetto solo contorno */
-.menu-list a:hover {
-    color: transparent;
-    -webkit-text-stroke: 1.5px #FF0000;
-    transform: scale(1.1);
-}
-
-/* 5. SOTTOMENU (PIÙ LEGGERO) */
-.dropdown {
+/* 4. STRUTTURA RUBRICA (NOTEBOOK) */
+.notebook-container {
+    width: 100%;
+    max-width: 800px;
     position: relative;
+    margin-top: 20px;
 }
 
-.submenu {
-    display: none;
+.notebook {
+    position: relative;
+    background: #fff; /* Foglio bianco */
+    min-height: 500px;
+    border-radius: 5px 0 0 5px;
+    /* Effetto pagine sovrapposte (ombra) */
+    box-shadow: 
+        5px 5px 0px #fff,
+        5px 5px 1px rgba(0,0,0,0.1),
+        10px 10px 0px #fff,
+        10px 10px 1px rgba(0,0,0,0.1);
+    margin-right: 50px; /* Spazio per le linguette */
+}
+
+/* 5. SEGNALIBRI (TABS) */
+.notebook-tabs {
     position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
+    right: -45px; /* Fa uscire i segnalibri dal foglio */
+    top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.tab-item {
+    background-color: #FF0000;
+    color: #fff !important;
+    text-decoration: none;
+    padding: 15px 8px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    writing-mode: vertical-rl; /* Scritta verticale */
+    transform: rotate(180deg);
+    border-radius: 0 5px 5px 0;
+    transition: all 0.3s ease;
+    border: 1px solid #FF0000;
+}
+
+.tab-item:hover {
+    padding-right: 20px;
     background-color: #FFC0CB;
-    padding: 15px;
-    list-style: none;
-    z-index: 100;
+    color: #FF0000 !important;
 }
 
-.dropdown:hover .submenu {
-    display: block;
+/* 6. PAGINA INTERNA RIGATA */
+.notebook-page {
+    padding: 40px;
+    min-height: 500px;
+    /* Effetto righe orizzontali */
+    background-image: linear-gradient(#e5e5e5 1px, transparent 1px);
+    background-size: 100% 30px;
+    line-height: 30px;
+    color: #333;
+    font-family: 'UniqueLight', sans-serif;
 }
 
-.submenu a {
-    font-family: 'UniqueLight', sans-serif !important;
-    font-size: 2.2rem !important; /* Grande ma sottile */
-    text-transform: lowercase;
-    letter-spacing: 2px;
-    margin: 5px 0;
+.notebook-page h2 {
+    font-family: 'UniqueBold', sans-serif;
+    color: #FF0000;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
 }
 
-/* 6. OTTIMIZZAZIONE MOBILE (SAFARI/IPHONE) */
+/* 7. LOGICA VISUALIZZAZIONE SEZIONI */
+.content-section {
+    display: none; /* Nascoste di base */
+}
+
+.content-section:target {
+    display: block; /* Mostra solo quella cliccata */
+}
+
+/* Se nessuna sezione è attiva, mostra il testo segnaposto */
+.content-section:target ~ .placeholder-text {
+    display: none;
+}
+
+.placeholder-text {
+    font-style: italic;
+    color: #999;
+    margin-top: 20px;
+}
+
+/* 8. MOBILE */
 @media (max-width: 768px) {
-    .main-title {
-        line-height: 1.2; /* Più spazio tra le righe su mobile */
-        letter-spacing: 0px; /* Lettere meno attaccate su mobile */
-        margin-bottom: 40px;
-    }
-    
-    .mobile-break {
-        display: block; /* Forza il cognome a capo su mobile */
-    }
-
-    .menu-list {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .submenu {
-        position: static;
-        transform: none;
-        padding-top: 10px;
-    }
+    .notebook-container { width: 90%; }
+    .main-title { font-size: 4rem; margin-bottom: 40px; }
+    .mobile-break { display: block; }
+    .notebook-tabs { right: -35px; }
+    .tab-item { padding: 10px 5px; font-size: 0.6rem; }
 }
