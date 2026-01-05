@@ -1,54 +1,46 @@
-/* 1. CARICAMENTO FONT */
-@font-face {
-    font-family: 'UniqueBold';
-    src: url('Unique-Bold.otf') format('opentype');
-    font-weight: bold;
-}
-@font-face {
-    font-family: 'UniqueLight';
-    src: url('Unique-Light.otf') format('opentype');
-    font-weight: 300;
-}
+/* 1. FONT ORIGINALI */
+@font-face { font-family: 'UniqueBold'; src: url('Unique-Bold.otf') format('opentype'); font-weight: bold; }
+@font-face { font-family: 'UniqueLight'; src: url('Unique-Light.otf') format('opentype'); font-weight: 300; }
 
-/* 2. RESET E BASE */
+/* 2. BASE */
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 html { scroll-behavior: smooth; }
-body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', sans-serif; overflow-x: hidden; min-height: 100vh; }
+body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', sans-serif; overflow-x: hidden; }
 
 .hero { text-align: center; width: 100%; padding: 20px; display: flex; flex-direction: column; align-items: center; }
 
-/* 3. SISTEMA TITOLO DOPPIO */
+/* 3. SISTEMA TITOLO DOPPIO - FIX LONTANANZA */
 .title-wrapper {
     position: relative;
-    display: grid; /* Sovrappone gli elementi esattamente al centro */
+    display: grid;
     place-items: center;
     width: 100%;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
+    height: auto; /* Lascia che il contenuto decida l'altezza */
 }
 
 .main-title {
-    grid-area: 1 / 1; /* Entrambi i titoli occupano la stessa "cella" della griglia */
-    font-size: clamp(4.5rem, 20vw, 14rem);
+    grid-area: 1 / 1;
+    font-size: clamp(4.5rem, 18vw, 13rem); /* Leggermente più piccolo per stare in pagina */
     text-transform: uppercase;
-    line-height: 0.85;
+    line-height: 0.8; /* Più compatto */
     letter-spacing: -2px;
     cursor: default;
 }
 
-/* Ombra Avorio */
+/* OMBRA AVORIO - Molto più vicina */
 .title-shadow {
     color: #fdf5e6;
-    transform: translate(6px, 6px); /* Spostamento fisso controllato */
+    transform: translate(4px, 4px); /* Valore ridotto per non sembrare staccata */
     z-index: 1;
 }
 
-/* Titolo Rosso sopra */
 .title-main {
     color: #FF0000;
     z-index: 2;
 }
 
-/* Animazione */
+/* ANIMAZIONE ORIGINALE */
 .main-title span {
     display: inline-block;
     animation: liquidWave 3s ease-in-out infinite;
@@ -57,30 +49,27 @@ body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', san
 
 @keyframes liquidWave {
     0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-30px) rotate(5deg); }
+    50% { transform: translateY(-25px) rotate(4deg); }
 }
 
 .space { display: inline-block; width: 0.2em; }
 
 /* 4. RUBRICA */
-.notebook-container { width: 95%; max-width: 1300px; margin-top: 50px; }
+.notebook-container { width: 95%; max-width: 1200px; margin-top: 40px; }
 
-/* 5. LINGUETTE (Stile Originale + Avorio) */
-.notebook-tabs { display: flex; justify-content: flex-start; gap: 15px; padding-left: 50px; }
+.notebook-tabs { display: flex; justify-content: flex-start; gap: 10px; padding-left: 40px; }
 
 .tab-item {
     text-decoration: none;
     color: #FF0000;
     background-color: #fdf5e6;
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(1.8rem, 4vw, 3rem);
     text-transform: uppercase;
-    letter-spacing: 1px;
     transition: all 0.3s ease;
-    display: inline-block;
-    padding: 20px 40px;
+    padding: 15px 35px;
     border: 2px solid #FF0000;
     border-bottom: none;
-    border-radius: 20px 20px 0 0;
+    border-radius: 15px 15px 0 0;
     position: relative;
     bottom: -2px;
     z-index: 3;
@@ -89,41 +78,39 @@ body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', san
 .tab-item:hover {
     color: transparent;
     -webkit-text-stroke: 1.5px #FF0000;
-    transform: scale(1.05) translateY(-5px);
 }
 
-/* 6. PAGINA CON RIGHE ROSSE */
+/* 5. PAGINA CON RIGHE ROSSE SOTTILI */
 .notebook-page {
     position: relative;
     background: #fdf5e6;
-    min-height: 700px;
+    min-height: 600px;
     border: 2px solid #FF0000;
-    border-radius: 25px;
-    padding: 80px 10%;
-    box-shadow: 15px 15px 0px rgba(255, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 60px 8%;
+    box-shadow: 10px 10px 0px rgba(255, 0, 0, 0.1);
     z-index: 2;
-    background-image: linear-gradient(rgba(255, 0, 0, 0.15) 1px, transparent 1px);
-    background-size: 100% 40px;
+    /* Righe rosse */
+    background-image: linear-gradient(rgba(255, 0, 0, 0.1) 1px, transparent 1px);
+    background-size: 100% 35px;
 }
 
-/* 7. BUCHI */
+/* 6. BUCHI */
 .ring-holes {
     position: absolute;
-    left: 40px;
-    top: 0;
-    bottom: 0;
+    left: 30px;
+    top: 0; bottom: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding: 40px 0;
+    padding: 30px 0;
 }
 
 .hole {
-    width: 25px;
-    height: 25px;
+    width: 20px; height: 20px;
     background-color: #FFC0CB;
     border-radius: 50%;
-    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1);
+    box-shadow: inset 2px 2px 4px rgba(0,0,0,0.05);
 }
 
 /* CONTENUTI */
@@ -131,14 +118,15 @@ body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', san
 .content-section:target { display: block; }
 .content-section:target ~ .placeholder-text { display: none; }
 
-.notebook-page h2 { font-size: clamp(3rem, 8vw, 6rem); color: #FF0000; margin-bottom: 30px; text-transform: uppercase; }
-.notebook-page p { font-family: 'UniqueLight', sans-serif; font-size: 2rem; color: #333; line-height: 1.4; }
+.notebook-page h2 { font-size: 3.5rem; color: #FF0000; margin-bottom: 20px; text-transform: uppercase; }
+.notebook-page p { font-family: 'UniqueLight', sans-serif; font-size: 1.8rem; color: #333; line-height: 1.4; }
 
-/* 8. MOBILE */
+/* 7. MOBILE */
 @media (max-width: 768px) {
-    .main-title { line-height: 1.2; letter-spacing: 0px; }
-    .title-shadow { transform: translate(3px, 3px); } /* Ridotta ombra su mobile */
+    .main-title { line-height: 1.1; font-size: 4rem; }
+    .title-shadow { transform: translate(2px, 2px); } /* Ombra quasi impercettibile su mobile */
     .mobile-break { display: block; }
-    .notebook-tabs { padding-left: 10px; gap: 5px; }
-    .tab-item { padding: 10px 15px; font-size: 1.2rem; }
+    .notebook-tabs { padding-left: 10px; gap: 3px; flex-wrap: wrap; }
+    .tab-item { padding: 8px 12px; font-size: 1rem; }
+    .notebook-page { padding: 40px 20px; }
 }
