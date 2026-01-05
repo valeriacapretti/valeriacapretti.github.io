@@ -1,4 +1,4 @@
-/* 1. CARICAMENTO FONT */
+/* 1. FONT */
 @font-face {
     font-family: 'UniqueBold';
     src: url('Unique-Bold.otf') format('opentype');
@@ -11,7 +11,7 @@
     font-weight: 300;
 }
 
-/* 2. RESET E BASE */
+/* 2. BASE */
 * {
     margin: 0;
     padding: 0;
@@ -34,16 +34,15 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 10px;
+    padding: 40px 0;
 }
 
-/* 3. TITOLO ANIMATO */
+/* 3. TITOLO */
 .main-title {
-    font-size: clamp(3rem, 12vw, 9rem);
+    font-size: clamp(3rem, 15vw, 12rem);
     text-transform: uppercase;
     line-height: 0.85;
-    letter-spacing: -2px;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
     text-align: center;
 }
 
@@ -58,100 +57,98 @@ body {
     50% { transform: translateY(-15px); }
 }
 
-.space { display: inline-block; width: 0.2em; }
-
-/* 4. STRUTTURA RUBRICA */
+/* 4. RUBRICA EXTRA LARGE */
 .notebook-container {
-    width: 100%;
-    max-width: 900px;
-    margin-top: 40px;
+    width: 95%; /* Quasi tutta la larghezza */
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-/* 5. SEGNALIBRI IN ALTO (TABS) */
+/* 5. LINGUETTE GIGANTI */
 .notebook-tabs {
     display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    padding-left: 20px; /* Allineamento stile rubrica */
+    width: 100%;
 }
 
 .tab-item {
+    flex: 1; /* Le linguette si dividono lo spazio equamente */
     background-color: #FF0000;
     color: #fff !important;
     text-decoration: none;
-    padding: 12px 20px;
-    font-size: 0.9rem;
+    text-align: center;
+    padding: 30px 10px; /* Molto alte */
+    font-size: clamp(1.5rem, 5vw, 4rem); /* Font enorme come il titolo */
     text-transform: uppercase;
-    border-radius: 10px 10px 0 0; /* Arrotondati solo sopra */
+    border-radius: 20px 20px 0 0;
     transition: all 0.3s ease;
-    border: 1px solid #FF0000;
+    border: 2px solid #FF0000;
     border-bottom: none;
-    display: inline-block;
 }
 
 .tab-item:hover {
-    background-color: #fff;
+    background-color: #fdf5e6; /* Colore carta ingiallita */
     color: #FF0000 !important;
-    padding-top: 5px; /* Si "alza" leggermente */
-    margin-top: -7px;
+    transform: translateY(-10px);
 }
 
-/* 6. PAGINA BIANCA RIGATA */
+/* 6. PAGINA INGIALLITA CON BUCHI */
 .notebook-page {
     position: relative;
-    background: #fff;
-    min-height: 500px;
-    border-radius: 0 10px 10px 10px;
-    padding: 50px 40px;
-    /* Effetto righe */
-    background-image: linear-gradient(#e5e5e5 1px, transparent 1px);
-    background-size: 100% 35px;
-    line-height: 35px;
-    box-shadow: 
-        0px 10px 0px #fff,
-        0px 10px 15px rgba(0,0,0,0.1);
+    background: #fdf5e6; /* Carta avorio/ingiallita */
+    min-height: 800px;
+    border-radius: 0 0 20px 20px;
+    padding: 80px 10%;
+    /* Righe della rubrica */
+    background-image: linear-gradient(#e0d6c3 1px, transparent 1px);
+    background-size: 100% 45px;
+    line-height: 45px;
+    box-shadow: 0px 20px 40px rgba(0,0,0,0.15);
     z-index: 1;
 }
 
+/* 7. I BUCHI (SIDEBAR SINISTRA) */
+.ring-holes {
+    position: absolute;
+    left: 40px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 40px 0;
+}
+
+.hole {
+    width: 25px;
+    height: 25px;
+    background-color: #FFC0CB; /* Il colore del fondo (rosa) passa attraverso i buchi */
+    border-radius: 50%;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+/* CONTENUTI */
 .notebook-page h2 {
-    font-size: 3rem;
+    font-size: clamp(2rem, 8vw, 6rem);
     color: #FF0000;
-    margin-bottom: 20px;
-    font-family: 'UniqueBold', sans-serif;
+    margin-bottom: 40px;
+    text-transform: uppercase;
 }
 
 .notebook-page p {
     font-family: 'UniqueLight', sans-serif;
-    font-size: 1.5rem;
-    color: #333;
+    font-size: clamp(1.2rem, 3vw, 2.5rem);
+    color: #444;
 }
 
-/* 7. VISUALIZZAZIONE CONTENUTI */
-.content-section {
-    display: none;
-}
-
-.content-section:target {
-    display: block;
-    animation: slideUp 0.4s ease;
-}
-
-.content-section:target ~ .placeholder-text {
-    display: none;
-}
-
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+/* LOGICA TARGET */
+.content-section { display: none; }
+.content-section:target { display: block; }
+.content-section:target ~ .placeholder-text { display: none; }
 
 /* 8. MOBILE */
 @media (max-width: 768px) {
-    .main-title { font-size: 4rem; margin-bottom: 30px; }
-    .mobile-break { display: block; }
-    .tab-item { 
-        padding: 8px 12px; 
-        font-size: 0.7rem; 
-    }
-    .notebook-page { padding: 30px 20px; }
+    .notebook-tabs { flex-wrap: wrap; }
+    .tab-item { flex: none; width: 50%; border-radius: 10px 10px 0 0; font-size: 1.5rem; padding: 15px 5px; }
+    .hole { width: 15px; height: 15px; }
+    .ring-holes { left: 15px; }
 }
