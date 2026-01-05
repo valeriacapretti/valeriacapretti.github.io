@@ -1,4 +1,4 @@
-/* 1. CARICAMENTO FONT (Originale) */
+/* 1. CARICAMENTO FONT */
 @font-face {
     font-family: 'UniqueBold';
     src: url('Unique-Bold.otf') format('opentype');
@@ -11,7 +11,7 @@
     font-weight: 300;
 }
 
-/* 2. RESET E BASE (Originale) */
+/* 2. RESET E BASE */
 * {
     margin: 0;
     padding: 0;
@@ -24,8 +24,8 @@ html {
 }
 
 body {
-    background-color: #FFC0CB; /* Rosa */
-    color: #FF0000;           /* Rosso */
+    background-color: #FFC0CB;
+    color: #FF0000;
     font-family: 'UniqueBold', sans-serif;
     overflow-x: hidden;
     min-height: 100vh;
@@ -40,15 +40,34 @@ body {
     align-items: center;
 }
 
-/* 3. TITOLO CON ONDA LIQUIDA (Esattamente come il tuo originale) */
+/* 3. TITOLO DOPPIO (EFFETTO OMBRA) */
+.title-container {
+    position: relative;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
 .main-title {
     font-size: clamp(4.5rem, 20vw, 14rem);
     text-transform: uppercase;
     line-height: 0.85;
     letter-spacing: -2px;
-    margin-bottom: 50px;
     display: block;
     cursor: default;
+    position: relative;
+    z-index: 2;
+}
+
+/* Titolo Avorio sotto (Ombra) */
+.title-shadow {
+    position: absolute;
+    z-index: 1;
+    color: #fdf5e6; /* Colore Avorio uguale al foglio */
+    top: 8px;   /* Sfasamento verticale */
+    left: 8px;  /* Sfasamento orizzontale */
 }
 
 .main-title span {
@@ -67,26 +86,26 @@ body {
     width: 0.2em;
 }
 
-/* 4. RUBRICA (Struttura) */
+/* 4. RUBRICA */
 .notebook-container {
     width: 95%;
     max-width: 1300px;
     margin-top: 50px;
 }
 
-/* 5. LINGUETTE (Stesse proprietà del tuo menu originale) */
+/* 5. LINGUETTE (Stile Originale + Colore Avorio) */
 .notebook-tabs {
     display: flex;
     justify-content: flex-start;
-    gap: 15px; /* Spazio tra le linguette */
+    gap: 15px;
     padding-left: 50px;
 }
 
 .tab-item {
     text-decoration: none;
     color: #FF0000;
-    background-color: #fdf5e6; /* Colore base linguetta */
-    font-size: clamp(2rem, 5vw, 3.5rem); /* Grandezza originale del tuo menu */
+    background-color: #fdf5e6; /* Avorio per evitare stacchi */
+    font-size: clamp(2rem, 5vw, 3.5rem);
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: all 0.3s ease;
@@ -96,28 +115,30 @@ body {
     border-bottom: none;
     border-radius: 20px 20px 0 0;
     position: relative;
-    bottom: -2px; /* Si appoggia sulla pagina */
-    z-index: 1;
+    bottom: -2px;
+    z-index: 3;
 }
 
-/* EFFETTO SOLO CONTORNO (Come il tuo originale) */
 .tab-item:hover {
     color: transparent;
     -webkit-text-stroke: 1.5px #FF0000;
     transform: scale(1.05) translateY(-5px);
-    background-color: #fdf5e6;
 }
 
-/* 6. PAGINA RUBRICA INGIALLITA */
+/* 6. PAGINA CON RIGHE ROSSE SOTTILI */
 .notebook-page {
     position: relative;
-    background: #fdf5e6; /* Avorio */
+    background: #fdf5e6;
     min-height: 700px;
     border: 2px solid #FF0000;
     border-radius: 25px;
     padding: 80px 10%;
     box-shadow: 15px 15px 0px rgba(255, 0, 0, 0.1);
     z-index: 2;
+    /* Righe rosse molto sottili */
+    background-image: linear-gradient(rgba(255, 0, 0, 0.2) 0.5px, transparent 0.5px);
+    background-size: 100% 40px;
+    line-height: 40px;
 }
 
 /* 7. BUCHI */
@@ -135,38 +156,33 @@ body {
 .hole {
     width: 25px;
     height: 25px;
-    background-color: #FFC0CB; /* Sfondo rosa visibile */
+    background-color: #FFC0CB;
     border-radius: 50%;
     box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1);
 }
 
 /* CONTENUTI */
 .content-section { display: none; }
-.content-section:target { display: block; animation: fadeIn 0.5s; }
+.content-section:target { display: block; }
 .content-section:target ~ .placeholder-text { display: none; }
 
 .notebook-page h2 {
     font-size: clamp(3rem, 8vw, 6rem);
     color: #FF0000;
     margin-bottom: 30px;
+    text-transform: uppercase;
 }
 
 .notebook-page p {
     font-family: 'UniqueLight', sans-serif;
     font-size: 2rem;
     color: #333;
-    line-height: 1.4;
 }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-/* 8. OTTIMIZZAZIONE MOBILE (Originale) */
+/* 8. MOBILE */
 @media (max-width: 768px) {
-    .main-title {
-        line-height: 1.2;
-        letter-spacing: 0px;
-        margin-bottom: 40px;
-    }
+    .main-title { line-height: 1.2; letter-spacing: 0px; }
+    .title-shadow { top: 4px; left: 4px; }
     .mobile-break { display: block; }
     .notebook-tabs { padding-left: 10px; gap: 5px; }
     .tab-item { padding: 10px 15px; font-size: 1.2rem; }
