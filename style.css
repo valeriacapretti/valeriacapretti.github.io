@@ -1,154 +1,112 @@
 /* 1. FONT */
-@font-face {
-    font-family: 'UniqueBold';
-    src: url('Unique-Bold.otf') format('opentype');
-    font-weight: bold;
-}
-
-@font-face {
-    font-family: 'UniqueLight';
-    src: url('Unique-Light.otf') format('opentype');
-    font-weight: 300;
-}
+@font-face { font-family: 'UniqueBold'; src: url('Unique-Bold.otf') format('opentype'); }
+@font-face { font-family: 'UniqueLight'; src: url('Unique-Light.otf') format('opentype'); }
 
 /* 2. BASE */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', sans-serif; overflow-x: hidden; }
 
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background-color: #FFC0CB; /* Rosa */
-    color: #FF0000;           /* Rosso */
-    font-family: 'UniqueBold', sans-serif;
-    min-height: 100vh;
-}
-
-.hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 0;
-}
+.hero { display: flex; flex-direction: column; align-items: center; padding: 40px 15px; }
 
 /* 3. TITOLO */
 .main-title {
-    font-size: clamp(3rem, 15vw, 12rem);
+    font-size: clamp(3rem, 12vw, 10rem);
     text-transform: uppercase;
-    line-height: 0.85;
-    margin-bottom: 80px;
     text-align: center;
+    margin-bottom: 50px;
+    line-height: 0.9;
 }
 
-.main-title span {
-    display: inline-block;
-    animation: liquidWave 3s ease-in-out infinite;
-    animation-delay: calc(0.1s * var(--i));
-}
-
-@keyframes liquidWave {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-}
-
-/* 4. RUBRICA EXTRA LARGE */
+/* 4. RUBRICA */
 .notebook-container {
-    width: 95%; /* Quasi tutta la larghezza */
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 1100px;
+    margin-top: 20px;
 }
 
-/* 5. LINGUETTE GIGANTI */
+/* 5. LINGUETTE (TABS) DISTINTE */
 .notebook-tabs {
     display: flex;
-    width: 100%;
+    justify-content: flex-start;
+    gap: 8px; /* Spazio tra le linguette per distinguerle */
+    padding-left: 40px;
 }
 
 .tab-item {
-    flex: 1; /* Le linguette si dividono lo spazio equamente */
-    background-color: #FF0000;
-    color: #fff !important;
     text-decoration: none;
-    text-align: center;
-    padding: 30px 10px; /* Molto alte */
-    font-size: clamp(1.5rem, 5vw, 4rem); /* Font enorme come il titolo */
+    padding: 20px 30px;
+    font-size: clamp(1.2rem, 3vw, 2.2rem); /* Grandi ma leggibili */
     text-transform: uppercase;
-    border-radius: 20px 20px 0 0;
-    transition: all 0.3s ease;
+    border-radius: 15px 15px 0 0;
     border: 2px solid #FF0000;
     border-bottom: none;
+    transition: all 0.3s ease;
+    position: relative;
+    bottom: -2px; /* Si incastra perfettamente sul foglio */
+    z-index: 0;
 }
+
+/* Colori alternati per non farle fondere */
+.color-1 { background-color: #ffffff; color: #FF0000 !important; }
+.color-2 { background-color: #ffe4e1; color: #FF0000 !important; }
+.color-3 { background-color: #ffffff; color: #FF0000 !important; }
+.color-4 { background-color: #ffe4e1; color: #FF0000 !important; }
+.color-5 { background-color: #ffffff; color: #FF0000 !important; }
 
 .tab-item:hover {
-    background-color: #fdf5e6; /* Colore carta ingiallita */
-    color: #FF0000 !important;
     transform: translateY(-10px);
+    z-index: 10;
+    background-color: #FF0000;
+    color: #fff !important;
 }
 
-/* 6. PAGINA INGIALLITA CON BUCHI */
+/* 6. PAGINA RUBRICA */
 .notebook-page {
     position: relative;
-    background: #fdf5e6; /* Carta avorio/ingiallita */
-    min-height: 800px;
-    border-radius: 0 0 20px 20px;
-    padding: 80px 10%;
-    /* Righe della rubrica */
-    background-image: linear-gradient(#e0d6c3 1px, transparent 1px);
-    background-size: 100% 45px;
-    line-height: 45px;
-    box-shadow: 0px 20px 40px rgba(0,0,0,0.15);
-    z-index: 1;
+    background: #fdfaf0; /* Giallino carta */
+    min-height: 700px;
+    border: 2px solid #FF0000;
+    border-radius: 20px;
+    padding: 60px 80px;
+    box-shadow: 10px 10px 0px rgba(255, 0, 0, 0.1);
+    z-index: 5;
 }
 
-/* 7. I BUCHI (SIDEBAR SINISTRA) */
+/* 7. BUCHI */
 .ring-holes {
     position: absolute;
-    left: 40px;
+    left: 25px;
     top: 0;
     bottom: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    padding: 40px 0;
+    justify-content: space-evenly;
 }
 
 .hole {
-    width: 25px;
-    height: 25px;
-    background-color: #FFC0CB; /* Il colore del fondo (rosa) passa attraverso i buchi */
+    width: 22px;
+    height: 22px;
+    background-color: #FFC0CB; /* Mostra il rosa del fondo */
     border-radius: 50%;
-    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2);
+    border: 2px solid rgba(0,0,0,0.05);
 }
 
-/* CONTENUTI */
-.notebook-page h2 {
-    font-size: clamp(2rem, 8vw, 6rem);
-    color: #FF0000;
-    margin-bottom: 40px;
-    text-transform: uppercase;
-}
-
-.notebook-page p {
-    font-family: 'UniqueLight', sans-serif;
-    font-size: clamp(1.2rem, 3vw, 2.5rem);
-    color: #444;
-}
-
-/* LOGICA TARGET */
-.content-section { display: none; }
-.content-section:target { display: block; }
+/* CONTENUTI SEZIONI */
+.content-section { display: none; padding-top: 20px; }
+.content-section:target { display: block; animation: fadeIn 0.5s; }
 .content-section:target ~ .placeholder-text { display: none; }
 
-/* 8. MOBILE */
+.notebook-page h2 { font-size: 4rem; margin-bottom: 20px; }
+.notebook-page p { font-family: 'UniqueLight', sans-serif; font-size: 1.8rem; line-height: 1.4; color: #333; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* MOBILE */
 @media (max-width: 768px) {
-    .notebook-tabs { flex-wrap: wrap; }
-    .tab-item { flex: none; width: 50%; border-radius: 10px 10px 0 0; font-size: 1.5rem; padding: 15px 5px; }
+    .notebook-tabs { gap: 4px; padding-left: 10px; flex-wrap: wrap; }
+    .tab-item { padding: 10px 15px; font-size: 1rem; border-radius: 8px 8px 0 0; }
+    .notebook-page { padding: 40px 30px; }
+    .ring-holes { left: 10px; }
     .hole { width: 15px; height: 15px; }
-    .ring-holes { left: 15px; }
 }
