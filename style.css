@@ -4,7 +4,6 @@
     src: url('Unique-Bold.otf') format('opentype');
     font-weight: bold;
 }
-
 @font-face {
     font-family: 'UniqueLight';
     src: url('Unique-Light.otf') format('opentype');
@@ -12,64 +11,44 @@
 }
 
 /* 2. RESET E BASE */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; }
+body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', sans-serif; overflow-x: hidden; min-height: 100vh; }
 
-html {
-    scroll-behavior: smooth;
-}
+.hero { text-align: center; width: 100%; padding: 20px; display: flex; flex-direction: column; align-items: center; }
 
-body {
-    background-color: #FFC0CB;
-    color: #FF0000;
-    font-family: 'UniqueBold', sans-serif;
-    overflow-x: hidden;
-    min-height: 100vh;
-}
-
-.hero {
-    text-align: center;
-    width: 100%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* 3. TITOLO DOPPIO (EFFETTO OMBRA) */
-.title-container {
+/* 3. SISTEMA TITOLO DOPPIO */
+.title-wrapper {
     position: relative;
-    margin-bottom: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid; /* Sovrappone gli elementi esattamente al centro */
+    place-items: center;
     width: 100%;
+    margin-bottom: 50px;
 }
 
 .main-title {
+    grid-area: 1 / 1; /* Entrambi i titoli occupano la stessa "cella" della griglia */
     font-size: clamp(4.5rem, 20vw, 14rem);
     text-transform: uppercase;
     line-height: 0.85;
     letter-spacing: -2px;
-    display: block;
     cursor: default;
-    position: relative;
+}
+
+/* Ombra Avorio */
+.title-shadow {
+    color: #fdf5e6;
+    transform: translate(6px, 6px); /* Spostamento fisso controllato */
+    z-index: 1;
+}
+
+/* Titolo Rosso sopra */
+.title-main {
+    color: #FF0000;
     z-index: 2;
 }
 
-/* Titolo Avorio sotto (Ombra) */
-.title-shadow {
-    position: absolute;
-    z-index: 1;
-    color: #fdf5e6; /* Colore Avorio uguale al foglio */
-    top: 8px;   /* Sfasamento verticale */
-    left: 8px;  /* Sfasamento orizzontale */
-}
-
+/* Animazione */
 .main-title span {
     display: inline-block;
     animation: liquidWave 3s ease-in-out infinite;
@@ -81,30 +60,18 @@ body {
     50% { transform: translateY(-30px) rotate(5deg); }
 }
 
-.space {
-    display: inline-block;
-    width: 0.2em;
-}
+.space { display: inline-block; width: 0.2em; }
 
 /* 4. RUBRICA */
-.notebook-container {
-    width: 95%;
-    max-width: 1300px;
-    margin-top: 50px;
-}
+.notebook-container { width: 95%; max-width: 1300px; margin-top: 50px; }
 
-/* 5. LINGUETTE (Stile Originale + Colore Avorio) */
-.notebook-tabs {
-    display: flex;
-    justify-content: flex-start;
-    gap: 15px;
-    padding-left: 50px;
-}
+/* 5. LINGUETTE (Stile Originale + Avorio) */
+.notebook-tabs { display: flex; justify-content: flex-start; gap: 15px; padding-left: 50px; }
 
 .tab-item {
     text-decoration: none;
     color: #FF0000;
-    background-color: #fdf5e6; /* Avorio per evitare stacchi */
+    background-color: #fdf5e6;
     font-size: clamp(2rem, 5vw, 3.5rem);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -125,7 +92,7 @@ body {
     transform: scale(1.05) translateY(-5px);
 }
 
-/* 6. PAGINA CON RIGHE ROSSE SOTTILI */
+/* 6. PAGINA CON RIGHE ROSSE */
 .notebook-page {
     position: relative;
     background: #fdf5e6;
@@ -135,10 +102,8 @@ body {
     padding: 80px 10%;
     box-shadow: 15px 15px 0px rgba(255, 0, 0, 0.1);
     z-index: 2;
-    /* Righe rosse molto sottili */
-    background-image: linear-gradient(rgba(255, 0, 0, 0.2) 0.5px, transparent 0.5px);
+    background-image: linear-gradient(rgba(255, 0, 0, 0.15) 1px, transparent 1px);
     background-size: 100% 40px;
-    line-height: 40px;
 }
 
 /* 7. BUCHI */
@@ -166,23 +131,13 @@ body {
 .content-section:target { display: block; }
 .content-section:target ~ .placeholder-text { display: none; }
 
-.notebook-page h2 {
-    font-size: clamp(3rem, 8vw, 6rem);
-    color: #FF0000;
-    margin-bottom: 30px;
-    text-transform: uppercase;
-}
-
-.notebook-page p {
-    font-family: 'UniqueLight', sans-serif;
-    font-size: 2rem;
-    color: #333;
-}
+.notebook-page h2 { font-size: clamp(3rem, 8vw, 6rem); color: #FF0000; margin-bottom: 30px; text-transform: uppercase; }
+.notebook-page p { font-family: 'UniqueLight', sans-serif; font-size: 2rem; color: #333; line-height: 1.4; }
 
 /* 8. MOBILE */
 @media (max-width: 768px) {
     .main-title { line-height: 1.2; letter-spacing: 0px; }
-    .title-shadow { top: 4px; left: 4px; }
+    .title-shadow { transform: translate(3px, 3px); } /* Ridotta ombra su mobile */
     .mobile-break { display: block; }
     .notebook-tabs { padding-left: 10px; gap: 5px; }
     .tab-item { padding: 10px 15px; font-size: 1.2rem; }
