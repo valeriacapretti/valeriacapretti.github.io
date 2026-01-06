@@ -138,62 +138,70 @@ body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', san
     .notebook-tabs { padding-left: 10px; gap: 5px; }
     .tab-item { padding: 10px 15px; font-size: 1.2rem; }
 }
-/* --- FIX POSIZIONAMENTO E FLUSSO CAFFÈ --- */
+/* --- SISTEMA CAFFÈ REALISTICO --- */
 
-/* Questo ancora la tazzina al lato destro del titolo */
 .title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px; /* Spazio tra nome e tazzina */
     position: relative;
-    width: fit-content; /* Fondamentale: il wrapper stringe sul testo */
-    margin: 0 auto 50px auto;
+    width: 100%;
 }
 
-.coffee-anchor {
-    position: absolute;
-    right: -120px; /* Distanza fissa dal cognome */
-    top: 50%;
-    transform: translateY(-50%);
+.title-container {
+    position: relative;
+    display: grid;
+    place-items: center;
+}
+
+.coffee-logic {
+    position: relative;
+    width: 150px;
     z-index: 100;
 }
 
 .coffee-cup {
-    width: 130px;
+    width: 100%;
     height: auto;
-    transform-origin: center left;
-    animation: wobbleCup 3s ease-in-out infinite;
-    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: left center;
+    animation: naturalWobble 4s ease-in-out infinite;
+    transition: transform 0.8s cubic-bezier(0.5, 0, 0.3, 1);
 }
 
-@keyframes wobbleCup {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(12deg); }
+@keyframes naturalWobble {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    50% { transform: rotate(8deg) translateY(-5px); }
 }
 
-/* IL FLUSSO */
+/* IL FLUSSO (Morbido e organico come in foto) */
 .coffee-flow {
     position: absolute;
-    top: 45px;
+    top: 50%; /* Parte dal centro della tazzina quando si inclina */
     left: 20px;
-    width: 18px;
+    width: 25px;
     height: 0;
-    background: #c08a4e; /* Colore caffè come immagine */
-    border-radius: 0 0 10px 10px;
+    /* Gradiente per dare l'effetto liquido */
+    background: linear-gradient(90deg, #b08d57 0%, #c6a664 50%, #b08d57 100%);
+    border-radius: 50px;
     opacity: 0;
-    transition: height 0.8s ease-in, opacity 0.3s;
+    transition: height 0.8s ease-in, opacity 0.4s;
     z-index: -1;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
 }
 
-/* ANIMAZIONE AL CLICK (TARGET) */
+/* AZIONE ROVESCIAMENTO */
 body:has(.content-section:target) .coffee-cup {
-    transform: rotate(105deg) translateY(-15px);
+    transform: rotate(115deg) translateX(-20px);
     animation: none;
 }
 
 body:has(.content-section:target) .coffee-flow {
     opacity: 1;
-    height: 500px; /* Lunghezza aumentata per raggiungere il foglio */
+    height: 600px; /* Lunghezza per arrivare al foglio */
 }
 
-/* LA MACCHIA SUL TITOLO (stesso colore del flusso) */
+/* LA MACCHIA (Colore coordinato e forma organica) */
 .content-section h2 {
     position: relative;
     display: inline-block;
@@ -202,29 +210,27 @@ body:has(.content-section:target) .coffee-flow {
 .content-section:target h2::before {
     content: '';
     position: absolute;
-    top: -10px;
-    left: -15px;
-    width: calc(100% + 30px);
-    height: calc(100% + 20px);
-    background: #c08a4e; /* Stesso colore del flusso */
-    opacity: 0.4;
-    filter: blur(12px);
-    border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%;
+    top: -15%;
+    left: -10%;
+    width: 120%;
+    height: 140%;
+    background: #c6a664;
+    opacity: 0.5;
+    filter: blur(15px);
+    /* Forma irregolare a macchia */
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
     z-index: -1;
-    animation: appearStain 1s forwards;
+    animation: stainSpread 1.2s ease-out forwards;
 }
 
-@keyframes appearStain {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1); opacity: 0.4; }
+@keyframes stainSpread {
+    0% { transform: scale(0.3); opacity: 0; }
+    100% { transform: scale(1); opacity: 0.5; }
 }
 
-/* Responsive per mobile */
+/* MOBILE FIX */
 @media (max-width: 768px) {
-    .coffee-anchor {
-        right: -60px;
-        top: 20%;
-    }
-    .coffee-cup { width: 70px; }
-    body:has(.content-section:target) .coffee-flow { height: 350px; }
+    .title-wrapper { flex-direction: column; gap: 10px; }
+    .coffee-logic { width: 80px; }
+    body:has(.content-section:target) .coffee-flow { height: 400px; }
 }
