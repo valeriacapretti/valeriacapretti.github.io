@@ -138,99 +138,100 @@ body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', san
     .notebook-tabs { padding-left: 10px; gap: 5px; }
     .tab-item { padding: 10px 15px; font-size: 1.2rem; }
 }
-/* --- SISTEMA CAFFÈ REALISTICO --- */
-
+/* --- LAYOUT TITOLO E TAZZINA --- */
 .title-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 40px; /* Spazio tra nome e tazzina */
+    gap: 15px;
     position: relative;
-    width: 100%;
-}
-
-.title-container {
-    position: relative;
-    display: grid;
-    place-items: center;
 }
 
 .coffee-logic {
     position: relative;
-    width: 150px;
+    width: 160px; /* Regola in base alla dimensione dell'immagine */
     z-index: 100;
 }
 
 .coffee-cup {
     width: 100%;
     height: auto;
-    transform-origin: left center;
-    animation: naturalWobble 4s ease-in-out infinite;
-    transition: transform 0.8s cubic-bezier(0.5, 0, 0.3, 1);
+    animation: simpleWobble 4s ease-in-out infinite;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes naturalWobble {
-    0%, 100% { transform: rotate(0deg) translateY(0); }
-    50% { transform: rotate(8deg) translateY(-5px); }
+@keyframes simpleWobble {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(8deg); }
 }
 
-/* IL FLUSSO (Morbido e organico come in foto) */
-.coffee-flow {
+/* IL FLUSSO (SVG) */
+.coffee-stream {
     position: absolute;
-    top: 50%; /* Parte dal centro della tazzina quando si inclina */
-    left: 20px;
-    width: 25px;
+    top: 50px;
+    left: 40px;
+    width: 35px;
     height: 0;
-    /* Gradiente per dare l'effetto liquido */
-    background: linear-gradient(90deg, #b08d57 0%, #c6a664 50%, #b08d57 100%);
-    border-radius: 50px;
+    fill: none;
+    stroke: #c6a664; /* Colore crema caffè */
+    stroke-width: 18;
+    stroke-linecap: round;
     opacity: 0;
-    transition: height 0.8s ease-in, opacity 0.4s;
-    z-index: -1;
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+    transition: height 0.8s ease-in, opacity 0.3s;
+    pointer-events: none;
 }
 
-/* AZIONE ROVESCIAMENTO */
+/* --- LOGICA DI ATTIVAZIONE PER TUTTI --- */
+/* Se una qualsiasi sezione content-section è target, la tazzina si gira */
 body:has(.content-section:target) .coffee-cup {
-    transform: rotate(115deg) translateX(-20px);
+    transform: rotate(115deg) translateX(-25px);
     animation: none;
 }
 
-body:has(.content-section:target) .coffee-flow {
+body:has(.content-section:target) .coffee-stream {
     opacity: 1;
-    height: 600px; /* Lunghezza per arrivare al foglio */
+    height: 550px;
 }
 
-/* LA MACCHIA (Colore coordinato e forma organica) */
-.content-section h2 {
+/* --- LA MACCHIA ORGANICA UNIVERSALE --- */
+.stain-wrapper {
     position: relative;
     display: inline-block;
 }
 
-.content-section:target h2::before {
-    content: '';
+.organic-stain {
     position: absolute;
-    top: -15%;
-    left: -10%;
-    width: 120%;
+    top: -10px;
+    left: -15px;
+    width: 130%;
     height: 140%;
     background: #c6a664;
-    opacity: 0.5;
-    filter: blur(15px);
-    /* Forma irregolare a macchia */
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
     z-index: -1;
-    animation: stainSpread 1.2s ease-out forwards;
+    opacity: 0;
+    filter: blur(10px) contrast(1.2);
+    border-radius: 40% 60% 60% 40% / 30% 30% 70% 70%;
+    transition: all 0.5s ease;
 }
 
-@keyframes stainSpread {
-    0% { transform: scale(0.3); opacity: 0; }
-    100% { transform: scale(1); opacity: 0.5; }
+/* Mostra la macchia solo quando la sezione è target */
+.content-section:target .organic-stain {
+    opacity: 0.6;
+    animation: stainGrow 1s ease-out forwards;
 }
 
-/* MOBILE FIX */
-@media (max-width: 768px) {
-    .title-wrapper { flex-direction: column; gap: 10px; }
-    .coffee-logic { width: 80px; }
-    body:has(.content-section:target) .coffee-flow { height: 400px; }
+/* Aggiungi una goccia che cola */
+.content-section:target .organic-stain::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 45%;
+    width: 15px;
+    height: 35px;
+    background: #c6a664;
+    border-radius: 50%;
+}
+
+@keyframes stainGrow {
+    0% { transform: scale(0.4); opacity: 0; }
+    100% { transform: scale(1); opacity: 0.6; }
 }
