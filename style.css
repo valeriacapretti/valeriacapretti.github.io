@@ -138,100 +138,95 @@ body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', san
     .notebook-tabs { padding-left: 10px; gap: 5px; }
     .tab-item { padding: 10px 15px; font-size: 1.2rem; }
 }
-/* --- LAYOUT TITOLO E TAZZINA --- */
-.title-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    position: relative;
-}
+/* MANTIENI TUTTO IL TUO CODICE PRECEDENTE E AGGIUNGI QUESTO IN FONDO */
 
-.coffee-logic {
-    position: relative;
-    width: 160px; /* Regola in base alla dimensione dell'immagine */
-    z-index: 100;
+/* 10. ANIMAZIONE TAZZINA E FLUSSO */
+
+.coffee-container {
+    position: absolute;
+    left: -150px; /* Posizionata a sinistra del titolo */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .coffee-cup {
-    width: 100%;
+    width: 120px;
     height: auto;
-    animation: simpleWobble 4s ease-in-out infinite;
-    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: cupSwing 3s ease-in-out infinite;
 }
 
-@keyframes simpleWobble {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(8deg); }
+/* Oscillazione continua */
+@keyframes cupSwing {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
 }
 
-/* IL FLUSSO (SVG) */
-.coffee-stream {
-    position: absolute;
-    top: 50px;
-    left: 40px;
-    width: 35px;
+/* Rotazione quando si clicca (usando :has per rilevare se una sezione è target) */
+body:has(.content-section:target) .coffee-cup {
+    transform: rotate(110deg) translateY(-20px);
+    animation: none; /* Ferma l'oscillazione quando versa */
+}
+
+/* Il flusso di caffè (il getto) */
+.coffee-flow {
+    width: 12px;
+    background: #6F4E37; /* Colore caffè */
     height: 0;
-    fill: none;
-    stroke: #c6a664; /* Colore crema caffè */
-    stroke-width: 18;
-    stroke-linecap: round;
     opacity: 0;
-    transition: height 0.8s ease-in, opacity 0.3s;
+    transition: height 0.5s ease, opacity 0.3s ease;
+    border-radius: 0 0 10px 10px;
+    box-shadow: inset -2px 0 5px rgba(0,0,0,0.2);
+}
+
+body:has(.content-section:target) .coffee-flow {
+    height: 400px; /* Lunghezza del getto verso il basso */
+    opacity: 1;
+    animation: flowPulse 0.2s infinite alternate;
+}
+
+@keyframes flowPulse {
+    from { width: 12px; }
+    to { width: 15px; }
+}
+
+/* 11. LA MACCHIA SUL TITOLO */
+.coffee-stain {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    background: #6F4E37;
+    border-radius: 50%;
+    filter: blur(5px);
+    opacity: 0.7;
+    z-index: -1;
     pointer-events: none;
 }
 
-/* --- LOGICA DI ATTIVAZIONE PER TUTTI --- */
-/* Se una qualsiasi sezione content-section è target, la tazzina si gira */
-body:has(.content-section:target) .coffee-cup {
-    transform: rotate(115deg) translateX(-25px);
-    animation: none;
-}
-
-body:has(.content-section:target) .coffee-stream {
-    opacity: 1;
-    height: 550px;
-}
-
-/* --- LA MACCHIA ORGANICA UNIVERSALE --- */
-.stain-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
-.organic-stain {
-    position: absolute;
-    top: -10px;
-    left: -15px;
-    width: 130%;
-    height: 140%;
-    background: #c6a664;
-    z-index: -1;
-    opacity: 0;
-    filter: blur(10px) contrast(1.2);
-    border-radius: 40% 60% 60% 40% / 30% 30% 70% 70%;
-    transition: all 0.5s ease;
-}
-
-/* Mostra la macchia solo quando la sezione è target */
-.content-section:target .organic-stain {
-    opacity: 0.6;
-    animation: stainGrow 1s ease-out forwards;
-}
-
-/* Aggiungi una goccia che cola */
-.content-section:target .organic-stain::after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 45%;
-    width: 15px;
-    height: 35px;
-    background: #c6a664;
-    border-radius: 50%;
+.content-section:target .coffee-stain {
+    animation: stainGrow 1s forwards 0.4s;
 }
 
 @keyframes stainGrow {
-    0% { transform: scale(0.4); opacity: 0; }
-    100% { transform: scale(1); opacity: 0.6; }
+    0% { width: 0; height: 0; opacity: 0; }
+    100% { width: 300px; height: 100px; opacity: 0.5; }
+}
+
+/* Responsive per tazzina */
+@media (max-width: 1024px) {
+    .coffee-container {
+        position: relative;
+        left: 0;
+        margin-bottom: 20px;
+    }
+    body:has(.content-section:target) .coffee-flow {
+        height: 100px;
+    }
 }
