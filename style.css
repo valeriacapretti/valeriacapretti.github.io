@@ -138,90 +138,92 @@ body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', san
     .notebook-tabs { padding-left: 10px; gap: 5px; }
     .tab-item { padding: 10px 15px; font-size: 1.2rem; }
 }
-/* --- GESTIONE TAZZINA --- */
-.title-wrapper {
-    position: relative; /* Indispensabile per ancorare la tazzina */
-}
+/* --- ANIMAZIONE E POSIZIONAMENTO CAFFÈ --- */
 
-.coffee-cup-container {
+/* Posizioniamo il contenitore vicino al titolo */
+.coffee-container {
     position: absolute;
-    /* Regola 'left' per avvicinarla o allontanarla dal nome */
-    left: 85%; 
-    top: 40%;
-    z-index: 20;
+    right: 5%; /* Avvicinata al titolo */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
     pointer-events: none;
 }
 
 .coffee-cup {
-    width: clamp(80px, 15vw, 150px);
+    width: 150px;
     height: auto;
-    transform-origin: bottom left;
-    /* Animazione dondolio (quasi cade) */
-    animation: wobble 3s ease-in-out infinite;
-    transition: transform 0.8s cubic-bezier(0.6, 0, 0.4, 1);
+    display: block;
+    transform-origin: bottom center;
+    /* Animazione dondolio iniziale */
+    animation: coffeeWobble 3s ease-in-out infinite;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes wobble {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(15deg); }
+@keyframes coffeeWobble {
+    0%, 100% { transform: rotate(0deg) translateX(0); }
+    50% { transform: rotate(10deg) translateX(5px); }
 }
 
-/* Quando una sezione è attiva (target), la tazzina si rovescia */
+/* FLUSSO DI CAFFÈ */
+.coffee-flow {
+    position: absolute;
+    top: 40px;
+    right: 70px;
+    width: 25px;
+    height: 0; /* Invisibile all'inizio */
+    background: #d2b48c; /* Beige caffè */
+    border-radius: 0 0 20px 20px;
+    opacity: 0;
+    transition: all 0.6s ease-in;
+    z-index: -1;
+    box-shadow: inset -5px 0 10px rgba(0,0,0,0.1);
+}
+
+/* QUANDO UNA SEZIONE È SELEZIONATA (:target) */
 body:has(.content-section:target) .coffee-cup {
-    transform: rotate(120deg) translateY(-20px);
-    animation: none;
+    transform: rotate(110deg) translateY(-20px);
+    animation: none; /* Smette di dondolare e si rovescia */
 }
 
-/* --- LA MACCHIA SUL TITOLO DEL QUADERNO --- */
+body:has(.content-section:target) .coffee-flow {
+    opacity: 1;
+    height: 450px; /* Lunghezza del flusso fino al quaderno */
+}
+
+/* MACCHIA SUL TITOLO DEL QUADERNO */
 .content-section h2 {
     position: relative;
-    display: inline-block; /* Serve per far aderire la macchia al testo */
+    display: inline-block;
 }
 
-/* Creazione della macchia beige */
-.content-section:target h2::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -15px;
-    width: 110%;
-    height: 120%;
-    background: rgba(198, 160, 120, 0.4); /* Beige caffè */
-    filter: blur(15px);
-    z-index: -1;
-    border-radius: 50% 30% 60% 40%;
-    animation: spillFade 1s forwards;
-}
-
-/* Effetto goccia che cola dal titolo */
 .content-section:target h2::after {
     content: '';
     position: absolute;
-    top: 20px;
-    right: 10%;
-    width: 8px;
-    height: 60px;
-    background: rgba(198, 160, 120, 0.4);
-    border-radius: 4px;
-    filter: blur(2px);
-    animation: dropFall 2s ease-out forwards;
+    top: -10px;
+    left: -20px;
+    width: 120%;
+    height: 130%;
+    background: radial-gradient(circle, rgba(210,180,140,0.6) 0%, transparent 70%);
+    z-index: -1;
+    filter: blur(10px);
+    animation: stainGrow 1s ease-out forwards;
 }
 
-@keyframes spillFade {
-    0% { opacity: 0; transform: scale(0.5); }
-    100% { opacity: 1; transform: scale(1); }
+@keyframes stainGrow {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
 
-@keyframes dropFall {
-    0% { height: 0; opacity: 0; }
-    50% { opacity: 1; }
-    100% { height: 80px; opacity: 0.6; }
-}
-
-/* Mobile: aggiusta la tazzina per schermi piccoli */
+/* Responsive Mobile */
 @media (max-width: 768px) {
-    .coffee-cup-container {
-        left: 70%;
+    .coffee-container {
+        right: -10px;
         top: 20%;
+    }
+    .coffee-cup { width: 80px; }
+    body:has(.content-section:target) .coffee-flow {
+        height: 300px;
+        right: 35px;
     }
 }
