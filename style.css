@@ -138,102 +138,115 @@ body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', san
     .notebook-tabs { padding-left: 10px; gap: 5px; }
     .tab-item { padding: 10px 15px; font-size: 1.2rem; }
 }
-/* --- EFFETTO VERSAMENTO A PARABOLA --- */
+/* --- AGGIUNTA TAZZINA E MACCHIA --- */
 
-.coffee-logic {
+/* 1. Posizionamento del sistema Caffè */
+.coffee-system {
     position: absolute;
+    /* Centrato rispetto al contenitore del titolo */
     top: 50%;
     left: 50%;
-    /* Posiziona la tazzina in alto a sinistra rispetto al titolo principale */
-    transform: translate(-280%, -120%); 
-    z-index: 100;
-    pointer-events: none;
+    /* Spostiamo la tazzina a sinistra e in alto rispetto al nome */
+    /* Modifica questi valori se vuoi spostare tutto il blocco */
+    transform: translate(-320%, -100%); 
+    z-index: 50;
+    pointer-events: none; /* Così si può cliccare attraverso */
 }
 
-.coffee-cup {
-    width: 150px;
+/* 2. La Tazzina (caffe.png) */
+.cup {
+    width: 140px;
     height: auto;
-    transform-origin: bottom right;
-    animation: cupSwing 4s ease-in-out infinite;
-    transition: transform 0.8s cubic-bezier(0.5, 0, 0.2, 1.2);
+    transform-origin: top right; /* Punto di rotazione sul manico/bordo */
+    animation: cupIdle 3s ease-in-out infinite;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.2));
 }
 
-@keyframes cupSwing {
+/* Oscillazione a riposo */
+@keyframes cupIdle {
     0%, 100% { transform: rotate(-5deg); }
-    50% { transform: rotate(10deg); }
+    50% { transform: rotate(5deg); }
 }
 
-/* Inclinazione tazzina al click */
-body:has(.content-section:target) .coffee-cup {
-    transform: rotate(120deg) translate(-10px, -20px);
+/* Quando si clicca una tab (target attivo), la tazzina ruota per versare */
+body:has(.content-section:target) .cup {
     animation: none;
+    transform: rotate(100deg) translate(10px, 20px);
 }
 
-/* Contenitore del flusso curvo */
-.coffee-stream-container {
+/* 3. Il Flusso Liquido (Curva Parabolica) */
+.liquid-stream {
     position: absolute;
-    top: 60px;   /* Punto di uscita dal beccuccio */
-    left: 80px;
-    width: 400px; /* Larghezza dell'arco verso il centro */
-    height: 500px; /* Altezza della caduta */
-    overflow: hidden;
+    top: 70px;    /* Parte dal bordo della tazzina */
+    left: 90px;   /* Aggiusta per centrare col beccuccio */
+    width: 15px;
+    height: 0;    /* Parte nascosto */
+    background: #4e342e; /* Colore caffè scuro */
+    border-radius: 10px;
     opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-body:has(.content-section:target) .coffee-stream-container {
-    opacity: 1;
-}
-
-/* La Parabola (il getto di caffè) */
-.coffee-curve {
-    width: 100%;
-    height: 100%;
-    background: #4b2c20; /* Colore caffè scuro */
-    /* Disegna una curva usando clip-path */
-    clip-path: path('M 0,0 Q 150,0 200,500 L 220,500 Q 170,0 20,0 Z');
-    transform: scaleY(0);
+    z-index: 40;
+    
+    /* Disegna la curva naturale della caduta */
     transform-origin: top;
-    transition: transform 0.8s ease-out;
+    /* Questo crea l'effetto arco verso destra */
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.1); 
 }
 
-body:has(.content-section:target) .coffee-curve {
-    transform: scaleY(1);
-    animation: liquidFlow 0.2s infinite alternate;
+/* Animazione del flusso quando si clicca */
+body:has(.content-section:target) .liquid-stream {
+    /* Il flusso diventa visibile e si allunga */
+    opacity: 1;
+    /* Altezza sufficiente per arrivare al quaderno */
+    height: 60vh; 
+    width: 18px;
+    
+    /* Transizione per simulare la gravità */
+    transition: height 0.4s ease-in 0.2s, opacity 0.1s linear 0.2s;
+    
+    /* Curvatura del getto usando trasformazione */
+    transform: skewX(-2deg); 
 }
 
-@keyframes liquidFlow {
-    from { filter: brightness(1); }
-    to { filter: brightness(1.2); }
-}
-
-/* Macchia sul titolo del quaderno */
-.coffee-stain {
+/* 4. La Macchia (macchia.png) sul Quaderno */
+.stain-img {
     position: absolute;
-    top: 0px;
+    top: -40px;     /* Posizione sopra il titolo H2 */
     left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, #6f4e37 20%, #3c2218 80%);
-    border-radius: 40% 60% 50% 50% / 40% 40% 60% 50%;
-    filter: blur(12px);
-    opacity: 0;
-    z-index: -1;
+    transform: translateX(-50%) scale(0.8);
+    width: 350px;   /* Grandezza della macchia */
+    height: auto;
+    opacity: 0;     /* Inizialmente invisibile */
+    z-index: -1;    /* Dietro al testo */
+    mix-blend-mode: multiply; /* Si fonde col foglio come vero liquido */
 }
 
-.content-section:target .coffee-stain {
-    animation: stainGrow 1s forwards 0.6s;
+/* Animazione comparsa macchia */
+.content-section:target .stain-img {
+    /* Compare DOPO che il flusso è arrivato (delay 0.5s) */
+    animation: stainAppear 0.8s forwards 0.5s;
 }
 
-@keyframes stainGrow {
-    0% { width: 0; height: 0; opacity: 0; }
-    100% { width: 400px; height: 160px; opacity: 0.4; }
+@keyframes stainAppear {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.5);
+    }
+    100% {
+        opacity: 0.8;
+        transform: translateX(-50%) scale(1);
+    }
 }
 
-/* Responsive per piccoli schermi */
+/* ADATTAMENTO MOBILE */
 @media (max-width: 768px) {
-    .coffee-logic { transform: translate(-120%, -180%); }
-    .coffee-stream-container { width: 200px; height: 300px; }
-    .coffee-curve { clip-path: path('M 0,0 Q 80,0 100,300 L 115,300 Q 95,0 15,0 Z'); }
+    .coffee-system {
+        /* Su mobile la tazzina va più in alto */
+        transform: translate(-50%, -180%);
+        left: 20%; 
+        top: 0;
+    }
+    .cup { width: 100px; }
+    .liquid-stream { left: 70px; top: 50px; }
+    .stain-img { width: 250px; top: -20px; }
 }
