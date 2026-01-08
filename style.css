@@ -176,8 +176,8 @@ body:has(.content-section:target) .cup {
 .flow-wrapper {
     position: absolute;
     /* Spingiamo l'immagine in alto (fuori dal quaderno) per raggiungere la tazzina */
-    top: -350px; 
-    left: 50%;
+    top: -400px; 
+    left: 75%;
     transform: translateX(-50%); /* Centrata orizzontalmente */
     width: 300px; /* Larghezza totale del flusso/macchia */
     height: 600px; /* Altezza sufficiente per coprire dalla tazzina al titolo */
