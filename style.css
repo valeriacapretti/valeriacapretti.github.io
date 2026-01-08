@@ -138,115 +138,95 @@ body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', san
     .notebook-tabs { padding-left: 10px; gap: 5px; }
     .tab-item { padding: 10px 15px; font-size: 1.2rem; }
 }
-/* --- AGGIUNTA TAZZINA E MACCHIA --- */
+/* --- SISTEMA CAFFÈ IMMAGINE UNICA --- */
 
-/* 1. Posizionamento del sistema Caffè */
-.coffee-system {
+/* 1. Posizionamento Tazzina */
+.coffee-cup-container {
     position: absolute;
-    /* Centrato rispetto al contenitore del titolo */
     top: 50%;
     left: 50%;
-    /* Spostiamo la tazzina a sinistra e in alto rispetto al nome */
-    /* Modifica questi valori se vuoi spostare tutto il blocco */
-    transform: translate(-320%, -100%); 
+    /* Regola questi valori per posizionare la tazzina esattamente sopra l'inizio del flusso */
+    /* Spostata a sinistra e in alto */
+    transform: translate(-330%, -120%); 
     z-index: 50;
-    pointer-events: none; /* Così si può cliccare attraverso */
+    pointer-events: none;
 }
 
-/* 2. La Tazzina (caffe.png) */
 .cup {
-    width: 140px;
+    width: 140px; /* Dimensione tazzina */
     height: auto;
-    transform-origin: top right; /* Punto di rotazione sul manico/bordo */
+    transform-origin: top right;
     animation: cupIdle 3s ease-in-out infinite;
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
     filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.2));
 }
 
-/* Oscillazione a riposo */
 @keyframes cupIdle {
     0%, 100% { transform: rotate(-5deg); }
     50% { transform: rotate(5deg); }
 }
 
-/* Quando si clicca una tab (target attivo), la tazzina ruota per versare */
+/* Rotazione tazzina al click */
 body:has(.content-section:target) .cup {
     animation: none;
-    transform: rotate(100deg) translate(10px, 20px);
+    transform: rotate(100deg) translate(20px, 10px);
 }
 
-/* 3. Il Flusso Liquido (Curva Parabolica) */
-.liquid-stream {
+/* 2. Wrapper per l'immagine del flusso+macchia */
+.flow-wrapper {
     position: absolute;
-    top: 70px;    /* Parte dal bordo della tazzina */
-    left: 90px;   /* Aggiusta per centrare col beccuccio */
-    width: 15px;
-    height: 0;    /* Parte nascosto */
-    background: #4e342e; /* Colore caffè scuro */
-    border-radius: 10px;
-    opacity: 0;
-    z-index: 40;
-    
-    /* Disegna la curva naturale della caduta */
-    transform-origin: top;
-    /* Questo crea l'effetto arco verso destra */
-    box-shadow: 2px 2px 0px rgba(0,0,0,0.1); 
-}
-
-/* Animazione del flusso quando si clicca */
-body:has(.content-section:target) .liquid-stream {
-    /* Il flusso diventa visibile e si allunga */
-    opacity: 1;
-    /* Altezza sufficiente per arrivare al quaderno */
-    height: 60vh; 
-    width: 18px;
-    
-    /* Transizione per simulare la gravità */
-    transition: height 0.4s ease-in 0.2s, opacity 0.1s linear 0.2s;
-    
-    /* Curvatura del getto usando trasformazione */
-    transform: skewX(-2deg); 
-}
-
-/* 4. La Macchia (macchia.png) sul Quaderno */
-.stain-img {
-    position: absolute;
-    top: -40px;     /* Posizione sopra il titolo H2 */
+    /* Spingiamo l'immagine in alto (fuori dal quaderno) per raggiungere la tazzina */
+    top: -350px; 
     left: 50%;
-    transform: translateX(-50%) scale(0.8);
-    width: 350px;   /* Grandezza della macchia */
-    height: auto;
-    opacity: 0;     /* Inizialmente invisibile */
-    z-index: -1;    /* Dietro al testo */
-    mix-blend-mode: multiply; /* Si fonde col foglio come vero liquido */
+    transform: translateX(-50%); /* Centrata orizzontalmente */
+    width: 300px; /* Larghezza totale del flusso/macchia */
+    height: 600px; /* Altezza sufficiente per coprire dalla tazzina al titolo */
+    z-index: 10;
+    pointer-events: none;
+    /* Se l'immagine ha sfondo bianco, multiply lo rende trasparente */
+    mix-blend-mode: multiply; 
 }
 
-/* Animazione comparsa macchia */
-.content-section:target .stain-img {
-    /* Compare DOPO che il flusso è arrivato (delay 0.5s) */
-    animation: stainAppear 0.8s forwards 0.5s;
+/* 3. L'immagine completa (flusso + macchia) */
+.full-stain {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Mantiene le proporzioni */
+    object-position: bottom center; /* La macchia sta in basso */
+    
+    /* STATO INIZIALE: Nascosta tagliandola dal basso verso l'alto al 100% */
+    clip-path: inset(0 0 100% 0); 
+    opacity: 0.9;
 }
 
-@keyframes stainAppear {
+/* 4. ANIMAZIONE: Il "Svelamento" dall'alto al basso */
+.content-section:target .full-stain {
+    animation: revealFlow 1s linear forwards;
+    animation-delay: 0.2s; /* Aspetta che la tazzina ruoti */
+}
+
+@keyframes revealFlow {
     0% {
-        opacity: 0;
-        transform: translateX(-50%) scale(0.5);
+        /* Tutto nascosto (tagliato al 100% dal basso) */
+        clip-path: inset(0 0 100% 0);
     }
     100% {
-        opacity: 0.8;
-        transform: translateX(-50%) scale(1);
+        /* Tutto visibile (taglio a 0) */
+        clip-path: inset(0 0 0 0);
     }
 }
 
 /* ADATTAMENTO MOBILE */
 @media (max-width: 768px) {
-    .coffee-system {
-        /* Su mobile la tazzina va più in alto */
+    .coffee-cup-container {
         transform: translate(-50%, -180%);
-        left: 20%; 
-        top: 0;
+        left: 20%;
     }
     .cup { width: 100px; }
-    .liquid-stream { left: 70px; top: 50px; }
-    .stain-img { width: 250px; top: -20px; }
+    
+    .flow-wrapper {
+        top: -250px;
+        width: 200px;
+        height: 400px;
+    }
 }
