@@ -147,7 +147,7 @@ body { background-color: #FFC0CB; color: #FF0000; font-family: 'UniqueBold', san
     left: 50%;
     /* Regola questi valori per posizionare la tazzina esattamente sopra l'inizio del flusso */
     /* Spostata a sinistra e in alto */
-    transform: translate(-330%, -100%); 
+    transform: translate(-330%, -70%); 
     z-index: 50;
     pointer-events: none;
 }
@@ -176,7 +176,7 @@ body:has(.content-section:target) .cup {
 .flow-wrapper {
     position: absolute;
     /* Spingiamo l'immagine in alto (fuori dal quaderno) per raggiungere la tazzina */
-    top: -450px; 
+    top: -520px; 
     left: 42%;
     transform: translateX(-50%); /* Centrata orizzontalmente */
     width: 300px; /* Larghezza totale del flusso/macchia */
