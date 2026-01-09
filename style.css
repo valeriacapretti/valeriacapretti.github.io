@@ -173,45 +173,55 @@ body:has(.content-section:target) .cup {
 }
 
 /* 2. Wrapper per l'immagine del flusso+macchia */
+/* --- SISTEMA FLUSSO + MACCHIA CORRETTO --- */
+
 .flow-wrapper {
     position: absolute;
-    /* Spingiamo l'immagine in alto (fuori dal quaderno) per raggiungere la tazzina */
+    /* I TUOI VALORI PER LA POSIZIONE PERFETTA */
     top: -600px; 
     left: 25%;
-    transform: translateX(-50%); /* Centrata orizzontalmente */
-    width: 300px; /* Larghezza totale del flusso/macchia */
-    height: 600px; /* Altezza sufficiente per coprire dalla tazzina al titolo */
+    
+    transform: translateX(-50%); /* Centra orizzontalmente rispetto al punto left */
+    width: 300px; 
+    height: 800px; /* Ho aumentato l'altezza per sicurezza, per non tagliare il flusso in alto */
     z-index: 10;
     pointer-events: none;
-    /* Se l'immagine ha sfondo bianco, multiply lo rende trasparente */
-    mix-blend-mode: multiply; 
+    mix-blend-mode: multiply;
+
+    /* FONDAMENTALE: Rimuove qualsiasi movimento/scatto indesiderato */
+    transition: none !important; 
 }
 
-/* 3. L'immagine completa (flusso + macchia) */
+/* L'immagine completa (flusso + macchia) */
 .full-stain {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Mantiene le proporzioni */
-    object-position: bottom center; /* La macchia sta in basso */
+    object-fit: contain;
+    object-position: bottom center; /* La macchia sta in basso, il flusso sale */
     
-    /* STATO INIZIALE: Nascosta tagliandola dal basso verso l'alto al 100% */
+    /* STATO INIZIALE: Nascosta. 
+       inset(top right bottom left). 
+       Mettendo bottom a 100%, tagliamo via tutto tranne il bordo superiore. */
     clip-path: inset(0 0 100% 0); 
     opacity: 0.9;
 }
 
-/* 4. ANIMAZIONE: Il "Svelamento" dall'alto al basso */
+/* Quando la sezione è attiva, parte l'animazione */
 .content-section:target .full-stain {
-    animation: revealFlow 1s linear forwards;
-    animation-delay: 0.2s; /* Aspetta che la tazzina ruoti */
+    /* 1.2s è la durata della caduta. 'linear' rende il flusso costante. */
+    animation: revealFlow 1.2s linear forwards;
+    animation-delay: 0.1s; /* Piccola pausa per far ruotare la tazzina prima che esca il caffè */
 }
 
+/* ANIMAZIONE "CADUTA" */
 @keyframes revealFlow {
     0% {
-        /* Tutto nascosto (tagliato al 100% dal basso) */
+        /* L'immagine è tutta tagliata via dal basso (invisibile) */
         clip-path: inset(0 0 100% 0);
     }
     100% {
-        /* Tutto visibile (taglio a 0) */
+        /* Il taglio sul fondo diventa 0 (tutta visibile) */
+        /* Questo movimento del taglio verso il basso simula il liquido che scende */
         clip-path: inset(0 0 0 0);
     }
 }
