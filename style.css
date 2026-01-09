@@ -183,7 +183,7 @@ body:has(.content-section:target) .cup {
     
     transform: translateX(-50%); /* Centra orizzontalmente rispetto al punto left */
     width: 300px; 
-    height: 800px; /* Ho aumentato l'altezza per sicurezza, per non tagliare il flusso in alto */
+    height: 600px; /* Ho aumentato l'altezza per sicurezza, per non tagliare il flusso in alto */
     z-index: 10;
     pointer-events: none;
     mix-blend-mode: multiply;
