@@ -14,9 +14,9 @@
         /* Reset e Stile Base */
         * { box-sizing: border-box; }
         body {
-            background-color: #F9F3E3; /* Il giallino della foto */
+            background-color: #F9F3E3; 
             font-family: 'UniqueCustom', sans-serif;
-            color: #E65100; /* Arancio-Rosso */
+            color: #E65100; 
             margin: 0;
             padding: 0;
             overflow-x: hidden;
@@ -26,26 +26,34 @@
             min-height: 100vh;
         }
 
-        /* Animazione Testo Principale */
+        /* Animazione Dondolante */
         @keyframes dondola {
-            0% { transform: rotate(-2deg); }
-            50% { transform: rotate(2deg); }
-            100% { transform: rotate(-2deg); }
+            0% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+            100% { transform: rotate(-3deg); }
         }
 
-        .titolo-animato {
+        /* Titoli Grandi */
+        .titolo-p1 {
             display: inline-block;
             animation: dondola 3s ease-in-out infinite;
-            font-size: 2.5rem;
+            font-size: 4rem; /* Molto più grande */
             margin-bottom: 20px;
+            line-height: 1.1;
         }
 
-        /* Cuoricini che volano */
+        .titolo-finale {
+            font-size: 3.5rem; /* Molto più grande */
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        /* Cuoricini di sfondo */
         .heart {
             position: fixed;
             bottom: -10%;
-            color: rgba(230, 81, 0, 0.4);
-            font-size: 20px;
+            color: rgba(230, 81, 0, 0.3);
+            font-size: 25px;
             user-select: none;
             z-index: -1;
             animation: fly 6s linear infinite;
@@ -53,13 +61,13 @@
 
         @keyframes fly {
             0% { transform: translateY(0) translateX(0); opacity: 1; }
-            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+            100% { transform: translateY(-110vh) translateX(50px); opacity: 0; }
         }
 
-        /* Layout Pagine */
+        /* Layout */
         .container {
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             padding: 20px;
             text-align: center;
         }
@@ -68,55 +76,54 @@
         .active { display: block; animation: fadeIn 0.8s ease-in; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
-        /* Immagini responsive */
         img {
             width: 100%;
             height: auto;
             border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             margin-bottom: 30px;
         }
 
-        /* Pulsantone */
+        /* Pulsantone Gigante */
         .btn-clicca {
             background-color: #E65100;
             color: #F9F3E3;
             border: none;
-            padding: 20px 40px; /* Molto grande */
+            padding: 25px 50px; 
             font-family: 'UniqueCustom', sans-serif;
-            font-size: 1.8rem; /* Testo grande */
-            border-radius: 50px;
+            font-size: 2.2rem; 
+            border-radius: 60px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(230, 81, 0, 0.3);
-            transition: transform 0.2s;
-            text-decoration: none;
-            display: inline-block;
+            box-shadow: 0 8px 20px rgba(230, 81, 0, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
             margin-top: 10px;
         }
 
         .btn-clicca:active { transform: scale(0.9); }
 
-        /* Media Query per telefoni piccoli */
-        @media (max-width: 400px) {
-            .titolo-animato { font-size: 2rem; }
-            .btn-clicca { font-size: 1.5rem; padding: 15px 30px; }
+        /* Ottimizzazione Telefono */
+        @media (max-width: 600px) {
+            .titolo-p1 { font-size: 2.8rem; }
+            .titolo-finale { font-size: 2.5rem; }
+            .btn-clicca { font-size: 1.8rem; padding: 20px 40px; }
+            p { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="heart" style="left:10%; animation-delay:0s;">❤</div>
-    <div class="heart" style="left:30%; animation-delay:2s;">❤</div>
-    <div class="heart" style="left:70%; animation-delay:1s;">❤</div>
-    <div class="heart" style="left:90%; animation-delay:4s;">❤</div>
+    <div class="heart" style="left:5%; animation-delay:0s;">❤</div>
+    <div class="heart" style="left:25%; animation-delay:2s;">❤</div>
+    <div class="heart" style="left:55%; animation-delay:1s;">❤</div>
+    <div class="heart" style="left:85%; animation-delay:4s;">❤</div>
 
     <div class="container">
         <div id="p1" class="page active">
-            <h1 class="titolo-animato">Buon San Valentino Sole!</h1>
+            <h1 class="titolo-p1">Buon San Valentino Sole!</h1>
             <img src="foto.jpg" alt="Noi">
             <button class="btn-clicca" onclick="showPage('p2')">clicca qui!!</button>
         </div>
@@ -127,8 +134,8 @@
         </div>
 
         <div id="p3" class="page">
-            <h1 style="font-size: 2.2rem;">ti è piaciuto il bigliettino?</h1>
-            <p style="font-size: 1.5rem;">apri la tua email ora :)</p>
+            <h1 class="titolo-finale">ti è piaciuto il bigliettino?</h1>
+            <p style="font-size: 1.8rem;">apri la tua email ora :)</p>
         </div>
     </div>
 
